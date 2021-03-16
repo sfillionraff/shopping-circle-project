@@ -1,13 +1,14 @@
 "use strict";
 
 const express = require("express");
-// const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const PORT = 8000;
 
 const {
   getProducts,
+  getSomeProducts,
+  getSellers,
   getProduct,
   addProduct,
   createAccount,
@@ -18,9 +19,14 @@ express()
   .use(express.static("public"))
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
-  // .use(bodyParser.json())
   // get all products
   .get("/products", getProducts)
+
+  // get some products for homepage
+  .get("/some_products", getSomeProducts)
+
+  // get sellers for homepage
+  .get("/sellers/explore", getSellers)
 
   // get a single product
   .get("/products/:_id", getProduct)

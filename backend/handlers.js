@@ -17,6 +17,7 @@ const getProducts = async (req, res) => {
     console.log("connected");
     const db = await client.db("Shopping_Circle");
     const allProducts = await db.collection("products").find().toArray();
+    // REDO THIS CODE: REPEATS ERROR CATCH TWICE
     if (allProducts === []) {
       res.status(404).json({
         status: 404,
@@ -38,13 +39,57 @@ const getProducts = async (req, res) => {
   }
 };
 
+const getSomeProducts = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  console.log("connected");
+  const db = await client.db("Shopping_Circle");
+  const allProducts = await db.collection("products").find().toArray();
+  const someProducts = allProducts.slice(1, 7);
+  if (someProducts === []) {
+    res.status(400).json({
+      status: 400,
+      data: someProducts,
+      error,
+      message: "Unable to get products",
+    });
+  } else {
+    res.status(200).json({
+      status: 200,
+      data: someProducts,
+      message: "Success!",
+    });
+  }
+  client.close();
+  console.log("disconnected");
+};
+
+const getSellers = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const users = await db.collection("users").find().toArray();
+  const sellersOnly = users.filter((user) => {
+    return user.type === "seller";
+  });
+  res.status(200).json({
+    status: 200,
+    data: sellersOnly,
+    message: "Success!",
+  });
+  client.close();
+  console.log("disconnected");
+};
+
 const getProduct = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   const _id = req.params._id;
   await client.connect();
   const db = await client.db("Shopping_Circle");
   console.log("connected");
-  db.collection("products")
+  await db
+    .collection("products")
     .findOne({ _id: _id })
     .then((result) => {
       res.status(200).json({
@@ -128,4 +173,11 @@ const createAccount = async (res, req) => {
     });
 };
 
-module.exports = { getProducts, getProduct, addProduct, createAccount };
+module.exports = {
+  getProducts,
+  getSomeProducts,
+  getSellers,
+  getProduct,
+  addProduct,
+  createAccount,
+};
