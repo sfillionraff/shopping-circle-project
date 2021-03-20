@@ -12,31 +12,25 @@ const { v4: uuidv4 } = require("uuid");
 
 const getProducts = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
-  try {
-    await client.connect();
-    console.log("connected");
-    const db = await client.db("Shopping_Circle");
-    const allProducts = await db.collection("products").find().toArray();
-    // REDO THIS CODE: REPEATS ERROR CATCH TWICE
-    if (allProducts === []) {
-      res.status(404).json({
-        status: 404,
-        message: "Products not found",
-        data: allProducts,
-        error,
-      });
-    } else {
-      res.status(200).json({
-        status: 200,
-        data: allProducts,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    client.close();
-    console.log("disconnected");
+  await client.connect();
+  console.log("connected");
+  const db = await client.db("Shopping_Circle");
+  const allProducts = await db.collection("products").find().toArray();
+  if (allProducts === []) {
+    res.status(404).json({
+      status: 404,
+      message: "Products not found",
+      data: allProducts,
+      error,
+    });
+  } else {
+    res.status(200).json({
+      status: 200,
+      data: allProducts,
+    });
   }
+  client.close();
+  console.log("disconnected");
 };
 
 const getSomeProducts = async (req, res) => {
@@ -173,6 +167,13 @@ const createAccount = async (res, req) => {
     });
 };
 
+const addItemToCart = (req, res) => {
+  let cartItems = [];
+  let addedItem = req.body.product;
+  cartItems.push(addedItem);
+  return cartItems;
+};
+
 module.exports = {
   getProducts,
   getSomeProducts,
@@ -180,4 +181,5 @@ module.exports = {
   getProduct,
   addProduct,
   createAccount,
+  addItemToCart,
 };

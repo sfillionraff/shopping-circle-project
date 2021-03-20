@@ -12,12 +12,13 @@ const ShoppingHomepage = () => {
       .then((response) => setAllProducts(response.data))
       .catch((error) => console.log(error));
   }, []);
+
   return (
     <Container>
       {allProducts !== null && (
         <>
-          <StyledProductsGrid data={allProducts} />
-          <StyledSideBar data={allProducts} />
+          <SideBar data={allProducts} />
+          <ProductsGrid data={allProducts} />
         </>
       )}
     </Container>
@@ -25,15 +26,10 @@ const ShoppingHomepage = () => {
 };
 
 const Container = styled.div`
-  display: grid;
-`;
-
-const StyledProductsGrid = styled(ProductsGrid)`
-  grid-area: main;
-`;
-
-const StyledSideBar = styled(SideBar)`
-  grid-area: menu;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  width: 80%;
 `;
 
 export default ShoppingHomepage;
