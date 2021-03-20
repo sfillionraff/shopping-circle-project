@@ -29,6 +29,13 @@ const Container = styled.div`
 const Image = styled.img`
   width: 200px;
   height: 200px;
+  object-fit: cover;
+  margin-top: 50px;
+  border-radius: 12px;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export default Preview;

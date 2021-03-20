@@ -25,39 +25,55 @@ const Homepage = () => {
   }, []);
 
   return (
-    <>
+    <HomepageContainer>
       {/* first section */}
       <HomepageTop />
       <SeparatorSection />
       {/* second section */}
       {previewProducts !== null && (
         <div>
-          <h2>Explore what's for sale</h2>
+          <SectionTitle>Explore what's for sale</SectionTitle>
           <Preview data={previewProducts} />
           <Link to="/products">
             <Button>Start Shopping</Button>
           </Link>
         </div>
       )}
-      <SeparatorSection />
       {/* third section */}
       {sellers !== null && (
         <div>
-          <h2>Selling online has never been so easy</h2>
+          <SectionTitle>Selling online has never been so easy</SectionTitle>
+          <Subtitle>Check out our sellers</Subtitle>
           <Preview data={sellers} />
           <Link to="/selling">
             <Button>Start Selling</Button>
           </Link>
         </div>
       )}
-    </>
+    </HomepageContainer>
   );
 };
 
+const HomepageContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const SeparatorSection = styled.div`
   width: 100%;
-  height: 100px;
+  height: 75px;
   position: relative;
+`;
+
+const SectionTitle = styled.h2`
+  margin-left: 5px;
+  margin-top: 100px;
+  font-size: 24pt;
+`;
+
+const Subtitle = styled.p`
+  margin-left: 5px;
+  font-size: 16pt;
 `;
 
 const Button = styled.button`

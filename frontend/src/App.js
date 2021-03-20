@@ -4,7 +4,13 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import NavBar from "./NavigationBar";
 import Footer from "./Footer";
-import Homepage from "./Homepage";
+import Homepage from "./Homepage/Homepage";
+import ShoppingHomepage from "./Shopping/ShoppingHomepage";
+import ProductDetails from "./Shopping/ProductDetails";
+import SellingHomepage from "./Selling/SellingHomepage";
+import AddNewItem from "./Selling/AddNewItem";
+import CreateAccount from "./Account/CreateAccount";
+import Cart from "./Cart/Cart";
 
 function App() {
   return (
@@ -12,18 +18,24 @@ function App() {
       <GlobalStyles />
       <NavBar />
       <Switch>
-        <Route exact path="/products/_id">
-          <h1>product detail page</h1>
+        <Route exact path="/products/:_id">
+          <ProductDetails />
         </Route>
       </Switch>
+      {/* <Switch>
+        <Route exact path="/products/category?type=category">
+          <ShoppingHomepage />
+        </Route>
+      </Switch> */}
       <Switch>
         <Route exact path="/products">
-          <h1>product grid page</h1>
+          <ShoppingHomepage />
         </Route>
       </Switch>
       <Switch>
         <Route exact path="/selling/add_new">
           <h1>adding an item for sale</h1>
+          <AddNewItem />
         </Route>
       </Switch>
       <Switch>
@@ -33,12 +45,12 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/selling">
-          <h1>selling homepage</h1>
+          <SellingHomepage />
         </Route>
       </Switch>
       <Switch>
         <Route exact path="/cart">
-          <h1>cart</h1>
+          <Cart />
         </Route>
       </Switch>
       <Switch>
@@ -53,7 +65,7 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/account/add_new">
-          <h1>create an account page</h1>
+          <CreateAccount />
         </Route>
       </Switch>
       <Switch>
@@ -64,6 +76,11 @@ function App() {
       <Switch>
         <Route exact path="/account">
           <h1>account page</h1>
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/account/login">
+          <h1>Login</h1>
         </Route>
       </Switch>
       <Switch>

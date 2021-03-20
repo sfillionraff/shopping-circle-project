@@ -32,10 +32,12 @@ const Footer = () => {
 };
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: ${colors.green};
   color: white;
+  margin-top: 50px;
 `;
 
 export default Footer;

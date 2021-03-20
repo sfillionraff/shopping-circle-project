@@ -19,6 +19,7 @@ export default createGlobalStyle`
       border: 0;
     }
     button {
+      margin: 10px;
       padding: 10px;
       background-color: ${colors.green};
       color: white;
@@ -30,5 +31,11 @@ export default createGlobalStyle`
       &:hover {
         cursor: pointer;
       }
+    }
+    img {
+      box-sizing: border-box;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 `;

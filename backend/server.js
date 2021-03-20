@@ -12,6 +12,7 @@ const {
   getProduct,
   addProduct,
   createAccount,
+  addItemToCart,
 } = require("./handlers");
 
 express()
@@ -38,6 +39,9 @@ express()
   // add new account
   // NEEDS TO BE TESTED
   .post("/account/addNew", createAccount)
+
+  // add item to cart
+  .post("/cart/addNew", addItemToCart)
 
   .get("*", (req, res) => {
     res.status(404).json({
