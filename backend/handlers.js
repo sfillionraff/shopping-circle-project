@@ -137,17 +137,20 @@ const addProduct = async (req, res) => {
   //   });
 };
 
-const createAccount = async (res, req) => {
+const createAccount = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   await client.connect();
   const db = await client.db("Shopping_Circle");
   console.log("connected");
   const newUser = req.body;
+  console.log(newUser);
   const _id = uuidv4();
 
-  db.collection("users")
+  await db
+    .collection("users")
     .insertOne({ _id: _id, newUser })
     .then((result) => {
+      console.log(result);
       res.status(200).json({
         status: 200,
         data: result,
@@ -167,11 +170,59 @@ const createAccount = async (res, req) => {
     });
 };
 
-const addItemToCart = (req, res) => {
-  let cartItems = [];
-  let addedItem = req.body.product;
-  cartItems.push(addedItem);
-  return cartItems;
+// const verifyInfo = () => {
+//   const emailToTest = userInfo.email.normalize();
+//   const passwordToTest = userInfo.password.normalize();
+//   const correctEmail = result.data.email.normalize();
+//   const correctPassword = result.data.password.normalize();
+//   console.log("emailToTest:", emailToTest);
+//   console.log("correctEmail:", correctEmail);
+//   console.log("passwordToTest:", passwordToTest);
+//   console.log("correctPassword:", correctPassword);
+//   if (
+//     emailToTest === correctEmail &&
+//     passwordToTest === correctPassword
+//   ) {
+//     console.log("yay!");
+//   } else {
+//     console.log("Login credentials are incorrect");
+//   }
+// };
+
+const login = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const userInfo = req.body;
+  console.log("req.body:", req.body);
+  await db
+    .collection("users")
+    .findOne({ email: userInfo.email })
+    .then((result) => {
+      // if (
+      //   result.data.email == userInfo.email &&
+      //   result.data.password == userInfo.password
+      // ) {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "User found",
+      });
+      // }
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        error,
+        message: "User not found. Please check login credentials",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
 };
 
 module.exports = {
@@ -181,5 +232,5 @@ module.exports = {
   getProduct,
   addProduct,
   createAccount,
-  addItemToCart,
+  login,
 };

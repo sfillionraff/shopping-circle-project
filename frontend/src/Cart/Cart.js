@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { cartItems } from "./reducers";
+import { cartItems } from ".././Reducers/cartReducers";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import CartItem from "./CartItem";
 

@@ -6,6 +6,7 @@ import SideBar from "./SideBar";
 
 const ShoppingHomepage = () => {
   const [allProducts, setAllProducts] = useState(null);
+
   useEffect(() => {
     fetch("/products")
       .then((res) => res.json())
@@ -26,10 +27,11 @@ const ShoppingHomepage = () => {
 };
 
 const Container = styled.div`
-  display: flex;
+  /* display: flex;
   align-content: flex-start;
-  align-items: baseline;
+  align-items: baseline; */
   width: 80%;
+  position: relative;
 `;
 
 export default ShoppingHomepage;

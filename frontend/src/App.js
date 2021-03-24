@@ -10,6 +10,8 @@ import ProductDetails from "./Shopping/ProductDetails";
 import SellingHomepage from "./Selling/SellingHomepage";
 import AddNewItem from "./Selling/AddNewItem";
 import CreateAccount from "./Account/CreateAccount";
+import AccountHomepage from "./Account/AccountHomepage";
+import Login from "./Account/Login";
 import Cart from "./Cart/Cart";
 
 function App() {
@@ -74,13 +76,13 @@ function App() {
         </Route>
       </Switch>
       <Switch>
-        <Route exact path="/account">
-          <h1>account page</h1>
+        <Route exact path="/account/login">
+          <Login />
         </Route>
       </Switch>
       <Switch>
-        <Route exact path="/account/login">
-          <h1>Login</h1>
+        <Route exact path="/account">
+          <AccountHomepage />
         </Route>
       </Switch>
       <Switch>

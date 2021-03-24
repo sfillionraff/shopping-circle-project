@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import { colors } from "../GlobalStyles";
-import { addItem } from "../Cart/actions";
+import { addItem } from "../Reducers/actions";
 
 const ProductDetails = () => {
   const { _id } = useParams();
