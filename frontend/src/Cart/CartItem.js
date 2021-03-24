@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-import { removeItem } from "../Cart/actions";
+import { removeItem } from "../Reducers/actions";
 
 const CartItem = (item) => {
   const { _id, name, price, quantity, imageSrc } = item.item;

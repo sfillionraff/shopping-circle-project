@@ -2,6 +2,8 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const PORT = 8000;
 
@@ -12,13 +14,15 @@ const {
   getProduct,
   addProduct,
   createAccount,
-  addItemToCart,
+  login,
 } = require("./handlers");
 
 express()
   .use(morgan("tiny"))
   .use(express.static("public"))
+  .use(cors())
   .use(express.urlencoded({ extended: false }))
+  .use(bodyParser.json())
   .use("/", express.static(__dirname + "/"))
   // get all products
   .get("/products", getProducts)
@@ -40,8 +44,9 @@ express()
   // NEEDS TO BE TESTED
   .post("/account/addNew", createAccount)
 
-  // add item to cart
-  .post("/cart/addNew", addItemToCart)
+  // log into existing account
+  // works
+  .post("/account/login", login)
 
   .get("*", (req, res) => {
     res.status(404).json({
