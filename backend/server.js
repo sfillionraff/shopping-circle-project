@@ -11,6 +11,7 @@ const {
   getProducts,
   getSomeProducts,
   getSellers,
+  getSeller,
   getProduct,
   addProduct,
   createAccount,
@@ -30,8 +31,11 @@ express()
   // get some products for homepage
   .get("/some_products", getSomeProducts)
 
-  // get sellers for homepage
+  // get sellers for homepage and selling homepage
   .get("/sellers/explore", getSellers)
+
+  // get a seller
+  .get("/sellers/:_id", getSeller)
 
   // get a single product
   .get("/products/:_id", getProduct)

@@ -1,16 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { colors } from "../GlobalStyles";
 
-const Preview = (props) => {
+// const Preview = (props) => {
+const Preview = ({ data, isProducts }) => {
+  console.log(isProducts);
   return (
     <Container>
-      {props.data.map((item) => {
+      {data.map((item) => {
         return (
-          <div key={item._id}>
-            <Image src={item.imageSrc} alt="homepage image" />
-          </div>
+          <Link
+            to={isProducts ? `/products/${item._id}` : `/selling/${item._id}`}
+          >
+            <div key={item._id}>
+              <Image src={item.imageSrc} alt="homepage image" />
+            </div>
+          </Link>
         );
       })}
     </Container>

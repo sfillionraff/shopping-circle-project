@@ -27,11 +27,9 @@ const ShoppingHomepage = () => {
 };
 
 const Container = styled.div`
-  /* display: flex;
-  align-content: flex-start;
-  align-items: baseline; */
   width: 80%;
   position: relative;
+  top: 50px;
 `;
 
 export default ShoppingHomepage;

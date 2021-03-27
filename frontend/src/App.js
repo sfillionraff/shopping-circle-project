@@ -6,8 +6,10 @@ import NavBar from "./NavigationBar";
 import Footer from "./Footer";
 import Homepage from "./Homepage/Homepage";
 import ShoppingHomepage from "./Shopping/ShoppingHomepage";
+import SideBarSearch from "./Shopping/SideBarSearch";
 import ProductDetails from "./Shopping/ProductDetails";
 import SellingHomepage from "./Selling/SellingHomepage";
+import SellerProfile from "./Selling/SellerProfile";
 import AddNewItem from "./Selling/AddNewItem";
 import CreateAccount from "./Account/CreateAccount";
 import AccountHomepage from "./Account/AccountHomepage";
@@ -24,11 +26,11 @@ function App() {
           <ProductDetails />
         </Route>
       </Switch>
-      {/* <Switch>
-        <Route exact path="/products/category?type=category">
-          <ShoppingHomepage />
+      <Switch>
+        <Route exact path="/products/:selectedCategory">
+          <SideBarSearch />
         </Route>
-      </Switch> */}
+      </Switch>
       <Switch>
         <Route exact path="/products">
           <ShoppingHomepage />
@@ -43,6 +45,11 @@ function App() {
       <Switch>
         <Route exact path="/selling/update">
           <h1>update item for sale</h1>
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/selling/:_id">
+          <SellerProfile />
         </Route>
       </Switch>
       <Switch>

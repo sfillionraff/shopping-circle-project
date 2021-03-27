@@ -28,12 +28,14 @@ const ProductDetails = () => {
           <Container key={product._id}>
             <Image src={product.imageSrc} alt={product.name} />
             <InfoContainer>
-              <h2>{product.name}</h2>
-              {product.brand ? <p>{product.brand}</p> : null}
+              <h2 style={{ marginBottom: 0 }}>{product.name}</h2>
+              {product.brand ? (
+                <p style={{ marginTop: 0 }}>{product.brand}</p>
+              ) : null}
               <p>{product.description}</p>
               <p>${product.price}</p>
               <p>Seller:</p>
-              <p>{product.category}</p>
+              <p>Category: {product.category}</p>
               <button onClick={() => dispatch(addItem(product))}>
                 Add to Cart
               </button>
@@ -64,13 +66,13 @@ const Image = styled.img`
   border-radius: 12px;
   left: 250px;
   top: 10px;
+  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`
   position: absolute;
-  width: 300px;
+  width: 400px;
   left: 600px;
-  top: 10px;
 `;
 
 export default ProductDetails;
