@@ -76,6 +76,35 @@ const getSellers = async (req, res) => {
   console.log("disconnected");
 };
 
+const getSeller = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  const _id = req.params._id;
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  await db
+    .collection("users")
+    .findOne({ _id: _id })
+    .then((result) => {
+      res.status(200).json({
+        status: 200,
+        data: result,
+      });
+    })
+    .catch((error) => {
+      res.status(404).json({
+        status: 404,
+        message: "Product not found",
+        data: _id,
+        error,
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
 const getProduct = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   const _id = req.params._id;
@@ -229,6 +258,7 @@ module.exports = {
   getProducts,
   getSomeProducts,
   getSellers,
+  getSeller,
   getProduct,
   addProduct,
   createAccount,

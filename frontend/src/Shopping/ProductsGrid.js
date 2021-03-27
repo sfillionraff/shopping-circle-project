@@ -29,16 +29,18 @@ const ProductsGrid = (props) => {
 const Container = styled.div`
   position: relative;
   width: 750px;
-  top: 100px;
-  left: 25%;
+  left: 30%;
+  top: 5px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   background-color: ${colors.yellow};
+  border-radius: 12px;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  padding-top: 5px;
 `;
 
 const ProductContainer = styled.div`
@@ -47,7 +49,7 @@ const ProductContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
+  max-width: 100%;
   height: 200px;
   border-radius: 5px;
 `;
@@ -56,11 +58,13 @@ const Title = styled.p`
   font-size: 12pt;
   color: white;
   text-align: center;
+  line-height: 15px;
 `;
 
 const Price = styled.p`
   text-align: center;
   color: white;
+  margin-top: 0px;
 `;
 
 export default ProductsGrid;

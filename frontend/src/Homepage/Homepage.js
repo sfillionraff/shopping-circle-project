@@ -8,6 +8,7 @@ import Preview from "./Preview";
 const Homepage = () => {
   const [previewProducts, setPreviewProducts] = useState(null);
   const [sellers, setSellers] = useState(null);
+  let isProducts = true;
 
   useEffect(() => {
     fetch("/some_products")
@@ -33,7 +34,7 @@ const Homepage = () => {
       {previewProducts !== null && (
         <div>
           <SectionTitle>Explore what's for sale</SectionTitle>
-          <Preview data={previewProducts} />
+          <Preview data={previewProducts} isProducts={isProducts} />
           <Link to="/products">
             <Button>Start Shopping</Button>
           </Link>
@@ -44,7 +45,7 @@ const Homepage = () => {
         <div>
           <SectionTitle>Selling online has never been so easy</SectionTitle>
           <Subtitle>Check out our sellers</Subtitle>
-          <Preview data={sellers} />
+          <Preview data={sellers} isProducts={!isProducts} />
           <Link to="/selling">
             <Button>Start Selling</Button>
           </Link>

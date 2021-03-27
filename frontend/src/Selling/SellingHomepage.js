@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 import { colors } from "../GlobalStyles";
+import Preview from ".././Homepage/Preview";
 
 const SellingHomepage = () => {
+  const [sellers, setSellers] = useState(null);
+  let isProducts = false;
+
+  useEffect(() => {
+    fetch("/sellers/explore")
+      .then((res) => res.json())
+      .then((response) => setSellers(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <div>
       <TopContainer>
@@ -19,9 +31,10 @@ const SellingHomepage = () => {
         <p>No fees to start out. What are you waiting for?</p>
       </TopContainer>
       <div>
-        <h1>Join the Shopping Circle Community</h1>
-        <p>seller pictures here</p>
+        <h1>Explore sellers</h1>
+        {sellers !== null && <Preview data={sellers} isProducts={isProducts} />}
       </div>
+      <h1>Join the Shopping Circle Community</h1>
       <BottomContainer>
         <AccountOptions>
           <h2>Want to get started?</h2>
@@ -49,6 +62,7 @@ const BottomContainer = styled.div`
   display: flex;
   background-color: ${colors.yellow};
   justify-content: center;
+  margin-top: 10px;
 `;
 
 const AccountOptions = styled.div`
