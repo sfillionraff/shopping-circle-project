@@ -41,7 +41,6 @@ express()
   .get("/products/:_id", getProduct)
 
   // add new product
-  // NOT WORKING
   .post("/products/addNew", addProduct)
 
   // add new account

@@ -42,7 +42,7 @@ const Image = styled.img`
 const InfoContainer = styled.div`
   position: absolute;
   top: 15px;
-  left: 150px;
+  left: 35%;
   width: 300px;
 `;
 

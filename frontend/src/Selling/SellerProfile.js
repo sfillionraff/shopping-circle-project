@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import DetailsComponent from ".././Shopping/DetailsComponent";
+// import DetailsComponent from ".././Shopping/DetailsComponent";
 
 const SellerProfile = () => {
   const { _id } = useParams();
@@ -17,7 +17,8 @@ const SellerProfile = () => {
 
   return (
     <>
-      <DetailsComponent item={seller} />
+      {/* <DetailsComponent item={seller} /> */}
+      <h1>seller profile here</h1>
     </>
   );
 };

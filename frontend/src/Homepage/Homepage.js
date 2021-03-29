@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link as LinkBase } from "react-router-dom";
 import styled from "styled-components";
 
 import HomepageTop from "./HomepageTop";
@@ -81,5 +81,7 @@ const Button = styled.button`
   position: relative;
   left: 50%;
 `;
+
+const Link = styled(LinkBase)``;
 
 export default Homepage;

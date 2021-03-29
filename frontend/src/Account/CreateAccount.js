@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { logIntoAccount } from "../Reducers/actions";
+import Form from "../Form";
 
 const CreateAccount = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
+
   const [account, setAccount] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     type: "",
@@ -24,66 +35,25 @@ const CreateAccount = () => {
       },
     })
       .then((result) => result.json())
-      .then((response) => console.log(response))
+      .then((response) => dispatch(logIntoAccount(response.account)))
       .catch((error) => console.log(error));
   };
 
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/");
+    }
+  }, [loggedIn]);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Full Name:{" "}
-        <input
-          type="text"
-          name="name"
-          value={account.name}
-          onChange={(e) => handleChange(e.target.value, e.target.name)}
-        />
-      </label>
-      <label>
-        Email:{" "}
-        <input
-          type="email"
-          name="email"
-          value={account.email}
-          onChange={(e) => handleChange(e.target.value, e.target.name)}
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="password"
-          name="password"
-          value={account.password}
-          onChange={(e) => handleChange(e.target.value, e.target.name)}
-        />
-      </label>
-      <label> Choose a type:</label>
-      <select
-        name="type"
-        value={account.type}
-        onChange={(e) => handleChange(e.target.value, e.target.name)}
-      >
-        <option value="type" name="type">
-          Type
-        </option>
-        <option value="buyer" name="type">
-          Buyer
-        </option>
-        <option value="seller" name="type">
-          Seller
-        </option>
-      </select>
-      <label>
-        Profile Picture:{" "}
-        <input
-          type="image"
-          name="imageSrc"
-          value={account.imageSrc}
-          onChange={(e) => handleChange(e.target.value, e.target.name)}
-        />
-      </label>
-      <input type="submit" value="Create Account" />
-    </form>
+    <>
+      <Form
+        formData={account}
+        formType="createAccount"
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+      />
+    </>
   );
 };
 

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
+import ButtonLink from "../ButtonLink";
+
 const AccountHomepage = () => {
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
   const [sellerProducts, setSellerProducts] = useState(null);
+
   useEffect(() => {
     fetch("/products")
       .then((res) => res.json())
@@ -25,10 +28,10 @@ const AccountHomepage = () => {
         <div>
           <div>
             <h2>Making an account is easy!</h2>
-            <p>
+            {/* <p>
               You can be a buyer or a seller, depending on what you want to do.
-            </p>
-            <Link to="/account/add_new">
+            </p> */}
+            <Link to="/account/create">
               <button>Create Account</button>
             </Link>
           </div>
@@ -42,8 +45,9 @@ const AccountHomepage = () => {
       ) : (
         <div>
           <div>
-            <h1>Hi {accountInfo.name}</h1>
-            <button>Update Account</button>
+            <h1>Hi {accountInfo.firstName}</h1>
+            {/* THIS LINK DOESNT WORK */}
+            <ButtonLink path="/account/update" text="Update Account" />
           </div>
           <div>
             <h1>What's for sale?</h1>

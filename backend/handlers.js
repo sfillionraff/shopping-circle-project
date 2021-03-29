@@ -139,31 +139,41 @@ const addProduct = async (req, res) => {
   await client.connect();
   const db = await client.db("Shopping_Circle");
   console.log("connected");
-  const newProduct = req.body;
+  const newProduct = req.body.newProduct;
+  const sellerId = req.body.sellerId;
   const productId = uuidv4();
-  console.log(newProduct);
 
-  // db.collection("products")
-  //   .insertOne({ _id: productId, newProduct })
-  //   .then((result) => {
-  //     res.status(200).json({
-  //       status: 200,
-  //       data: result,
-  //       message: "Successfully added a new item for sale!",
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     res.status(400).json({
-  //       status: 400,
-  //       error,
-  //       data: newProduct,
-  //       message: "Unable to add new item for sale",
-  //     });
-  //   })
-  //   .finally(() => {
-  //     client.close();
-  //     console.log("disconnected");
-  //   });
+  await db
+    .collection("products")
+    .insertOne({
+      _id: productId,
+      name: newProduct.name,
+      brand: newProduct.brand,
+      category: newProduct.category,
+      price: newProduct.price,
+      description: newProduct.description,
+      imageSrc: newProduct.imageSrc,
+      sellerId: sellerId,
+    })
+    .then((result) => {
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Successfully added a new item for sale!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        error,
+        data: newProduct,
+        message: "Unable to add new item for sale",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
 };
 
 const createAccount = async (req, res) => {
@@ -172,17 +182,23 @@ const createAccount = async (req, res) => {
   const db = await client.db("Shopping_Circle");
   console.log("connected");
   const newUser = req.body;
-  console.log(newUser);
   const _id = uuidv4();
-
   await db
     .collection("users")
-    .insertOne({ _id: _id, newUser })
+    .insertOne({
+      _id: _id,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      password: newUser.password,
+      type: newUser.type,
+      imageSrc: newUser.imageSrc,
+    })
     .then((result) => {
-      console.log(result);
       res.status(200).json({
         status: 200,
         data: result,
+        account: { newUser, _id },
         message: "New account successfully created!",
       });
     })
