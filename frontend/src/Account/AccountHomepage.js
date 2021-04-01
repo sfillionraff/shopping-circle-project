@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import ButtonLink from "../ButtonLink";
+import { logOutAccount } from "../Reducers/actions";
 
 const AccountHomepage = () => {
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [sellerProducts, setSellerProducts] = useState(null);
 
   useEffect(() => {
@@ -48,6 +52,13 @@ const AccountHomepage = () => {
             <h1>Hi {accountInfo.firstName}</h1>
             {/* THIS LINK DOESNT WORK */}
             <ButtonLink path="/account/update" text="Update Account" />
+            <button
+              onClick={() => {
+                dispatch(logOutAccount());
+              }}
+            >
+              Log out
+            </button>
           </div>
           <div>
             <h1>What's for sale?</h1>

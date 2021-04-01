@@ -14,3 +14,7 @@ export const logIntoAccount = (item) => ({
   type: "LOG_INTO_ACCOUNT",
   item,
 });
+
+export const logOutAccount = () => ({
+  type: "LOG_OUT_ACCOUNT",
+});

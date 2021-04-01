@@ -8,9 +8,11 @@ const DetailsComponent = ({ item }) => {
     <>
       {/* condition here */}
       <Container key={item._id}>
-        <Image src={item.imageSrc} alt={item.name} />
+        <Image src={item.imageSrc} alt={`${item.firstName} ${item.lastName}`} />
         <InfoContainer>
-          <h2>{item.name}</h2>
+          <h2>
+            {item.firstName} {item.lastName}
+          </h2>
         </InfoContainer>
       </Container>
     </>

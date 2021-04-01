@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// import DetailsComponent from ".././Shopping/DetailsComponent";
+import DetailsComponent from ".././Shopping/DetailsComponent";
 
 const SellerProfile = () => {
   const { _id } = useParams();
@@ -12,13 +12,13 @@ const SellerProfile = () => {
       .then((res) => res.json())
       .then((response) => setSeller(response.data))
       .catch((error) => console.log(error));
-    console.log(seller);
   }, []);
 
   return (
     <>
-      {/* <DetailsComponent item={seller} /> */}
-      <h1>seller profile here</h1>
+      {seller !== null && <DetailsComponent item={seller} />}
+      {/* <h1>seller profile here</h1>
+      <p>{seller.firstName}</p> */}
     </>
   );
 };

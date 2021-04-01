@@ -23,7 +23,7 @@ function App() {
       <GlobalStyles />
       <NavBar />
       <Switch>
-        <Route exact path="/products/:_id">
+        <Route exact path="/product/:_id">
           <ProductDetails />
         </Route>
       </Switch>
