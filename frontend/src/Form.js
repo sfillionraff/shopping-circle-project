@@ -6,6 +6,7 @@ import { colors } from "./GlobalStyles";
 const Form = ({ formData, formType, handleSubmit, handleChange }) => {
   return (
     <form onSubmit={handleSubmit}>
+      {/* login form */}
       {formType === "login" ? (
         <>
           <Label>
@@ -30,9 +31,10 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               }
             />
           </Label>
-          <input type="submit" value="Login" />
+          <Button type="submit" value="Login" style={{ top: 150, right: 5 }} />
         </>
       ) : formType === "createAccount" ? (
+        // form for creating an account
         <>
           <Label>
             First Name:{" "}
@@ -71,7 +73,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label> Choose a type:</Label>
-          <select
+          <Select
             name="type"
             value={formData.type}
             onChange={(e) => handleChange(e.target.value, e.target.name)}
@@ -85,7 +87,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             <option value="seller" name="type">
               Seller
             </option>
-          </select>
+          </Select>
           <Label>
             Profile Picture:{" "}
             <Input
@@ -95,9 +97,10 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
-          <Input type="submit" value="Create Account" />
+          <Button type="submit" value="Create Account" style={{ right: 10 }} />
         </>
       ) : formType === "addNewItem" ? (
+        // form for seller to add new item
         <>
           <Label>
             Product Name:
@@ -118,7 +121,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>Select a Category:</Label>
-          <select
+          <Select
             name="category"
             value={formData.category}
             onChange={(e) => handleChange(e.target.value, e.target.name)}
@@ -138,7 +141,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             <option value="category" name="category">
               Clothing
             </option>
-          </select>
+          </Select>
           <Label>
             Price:
             <Input
@@ -150,7 +153,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
           </Label>
           <Label>
             Description:
-            <textarea
+            <Textarea
               value={formData.description}
               name="description"
               onChange={(e) => handleChange(e.target.value, e.target.name)}
@@ -165,9 +168,10 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
-          <input type="submit" value="Add Product" />
+          <Button type="submit" value="Add Product" />
         </>
       ) : formType === "billingInfo" ? (
+        // form for billing information on purchase
         <>
           <Label>
             First Name:{" "}
@@ -197,7 +201,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            Street Address
+            Street Address:
             <Input
               type="text"
               name="streetAddress"
@@ -206,7 +210,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            Apartment, suite, etc
+            Apartment, suite, etc:
             <Input
               type="text"
               name="apt"
@@ -215,7 +219,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            City
+            City:
             <Input
               type="text"
               name="city"
@@ -224,7 +228,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            Province
+            Province:
             <Input
               type="text"
               name="province"
@@ -233,7 +237,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            Postal Code
+            Postal Code:
             <Input
               type="text"
               name="postalCode"
@@ -242,7 +246,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             />
           </Label>
           <Label>
-            Country
+            Country:
             <Input
               type="text"
               name="country"
@@ -252,11 +256,12 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
           </Label>
         </>
       ) : formType === "payInfo" ? (
+        // form for payment information
         <>
           <Label>
-            Credit Card Number
+            Credit Card Number:
             <Input
-              type="number"
+              type="text"
               name="cardNumber"
               value={formData.cardNumber}
               onChange={(e) => handleChange(e.target.value, e.target.name)}
@@ -265,22 +270,26 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
           <Label placeholder="MM/YY">
             Expiration:
             <Input
-              type="number"
+              type="text"
               name="expiration"
               value={formData.expiration}
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
           <Label>
-            CVC
+            CVC:
             <Input
-              type="number"
+              type="text"
               name="cvc"
               value={formData.cvc}
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
-          <input type="submit" value="Buy Now" />
+          <Button
+            type="submit"
+            value="Buy Now"
+            style={{ right: 15, top: 250 }}
+          />
         </>
       ) : null}
     </form>
@@ -295,8 +304,38 @@ const Label = styled.label`
 const Input = styled.input`
   border-radius: 12px;
   border-style: none;
+  width: 100%;
+  margin: 5px;
+
   &:focus {
-    outline: 1px solid ${colors.green};
+    border: 1px solid ${colors.green};
+    outline: none;
+  }
+`;
+
+const Textarea = styled.textarea`
+  resize: none;
+  width: 100%;
+  height: 100px;
+`;
+
+const Select = styled.select`
+  width: 35%;
+  margin: 5px;
+`;
+
+const Button = styled.input`
+  background-color: ${colors.green};
+  color: white;
+  padding: 5px;
+  border-style: none;
+  border-radius: 12px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

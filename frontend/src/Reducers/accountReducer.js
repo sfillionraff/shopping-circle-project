@@ -12,6 +12,13 @@ export default function accountReducer(state = initialState, action) {
         accountInfo: action.item,
       };
     }
+    case "LOG_OUT_ACCOUNT": {
+      return {
+        ...state,
+        loggedIn: false,
+        accountInfo: null,
+      };
+    }
     default:
       return state;
   }

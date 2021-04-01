@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
@@ -9,6 +9,7 @@ import { addItem } from "../Reducers/actions";
 const ProductDetails = () => {
   const { _id } = useParams();
   const [product, setProduct] = useState(null);
+  const [productSeller, setProductSeller] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,8 +19,18 @@ const ProductDetails = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // IF OUT OF STOCK, NEEDS TO SHOW THAT
-  // HAVE A BACK TO SHOPPING BUTTON
+  useEffect(() => {
+    if (product) {
+      fetch("/sellers/explore")
+        .then((res) => res.json())
+        .then((response) => {
+          let sellerInfo = response.data.filter((seller) => {
+            return seller._id === product.sellerId;
+          });
+          setProductSeller(sellerInfo[0]);
+        });
+    }
+  }, [product]);
 
   return (
     <>
@@ -34,7 +45,14 @@ const ProductDetails = () => {
               ) : null}
               <p>{product.description}</p>
               <p>${product.price}</p>
-              <p>Seller:</p>
+              {productSeller !== null && (
+                <span>
+                  Seller:{" "}
+                  <StyledLink to={`/selling/${productSeller._id}`}>
+                    {productSeller.firstName} {productSeller.lastName}
+                  </StyledLink>
+                </span>
+              )}
               <p>Category: {product.category}</p>
               <button onClick={() => dispatch(addItem(product))}>
                 Add to Cart
@@ -73,6 +91,14 @@ const InfoContainer = styled.div`
   position: absolute;
   width: 400px;
   left: 600px;
+`;
+
+const StyledLink = styled(Link)`
+  font-weight: bold;
+  color: black;
+  &:visited {
+    color: black;
+  }
 `;
 
 export default ProductDetails;

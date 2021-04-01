@@ -16,6 +16,7 @@ const {
   addProduct,
   createAccount,
   login,
+  updateProducts,
 } = require("./handlers");
 
 express()
@@ -44,12 +45,13 @@ express()
   .post("/products/addNew", addProduct)
 
   // add new account
-  // NEEDS TO BE TESTED
   .post("/account/addNew", createAccount)
 
   // log into existing account
-  // works
   .post("/account/login", login)
+
+  // update purchased products
+  .patch("/updateProducts", updateProducts)
 
   .get("*", (req, res) => {
     res.status(404).json({

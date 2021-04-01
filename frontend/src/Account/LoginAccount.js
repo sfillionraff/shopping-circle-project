@@ -10,7 +10,7 @@ const LoginAccount = () => {
   const { action } = useParams();
   return (
     <Container>
-      <span>
+      <Span>
         <StyledLink
           to="/account/login"
           activeStyle={{
@@ -31,7 +31,7 @@ const LoginAccount = () => {
         >
           Create Account
         </StyledLink>
-      </span>
+      </Span>
       {action === "login" ? <Login /> : <CreateAccount />}
     </Container>
   );
@@ -54,6 +54,10 @@ const StyledLink = styled(NavLink)`
   padding-left: 5px;
   padding-right: 5px;
   color: white;
+`;
+
+const Span = styled.span`
+  height: 150px;
 `;
 
 export default LoginAccount;

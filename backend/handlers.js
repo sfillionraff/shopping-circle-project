@@ -15,7 +15,10 @@ const getProducts = async (req, res) => {
   await client.connect();
   console.log("connected");
   const db = await client.db("Shopping_Circle");
-  const allProducts = await db.collection("products").find().toArray();
+  const allProducts = await db
+    .collection("products")
+    .find({ status: "available" })
+    .toArray();
   if (allProducts === []) {
     res.status(404).json({
       status: 404,
@@ -38,7 +41,10 @@ const getSomeProducts = async (req, res) => {
   await client.connect();
   console.log("connected");
   const db = await client.db("Shopping_Circle");
-  const allProducts = await db.collection("products").find().toArray();
+  const allProducts = await db
+    .collection("products")
+    .find({ status: "available" })
+    .toArray();
   const someProducts = allProducts.slice(1, 7);
   if (someProducts === []) {
     res.status(400).json({
@@ -270,6 +276,40 @@ const login = async (req, res) => {
     });
 };
 
+const updateProducts = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const productsToUpdate = req.body;
+  await db
+    .collection("products")
+    .updateMany(
+      { _id: { $in: productsToUpdate } },
+      { $set: { status: "unavailable" } }
+    )
+    .then((result) => {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Success!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        data: `Product IDs: ${productsToUpdate}`,
+        error,
+        message: "Products not purchased successfully",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
 module.exports = {
   getProducts,
   getSomeProducts,
@@ -279,4 +319,5 @@ module.exports = {
   addProduct,
   createAccount,
   login,
+  updateProducts,
 };

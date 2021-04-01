@@ -33,7 +33,7 @@ const Image = styled.img`
   position: absolute;
   top: 15px;
   left: 15px;
-  /* width: 150px; */
+  max-width: 165px;
   height: 125px;
   object-fit: contain;
   border-radius: 12px;

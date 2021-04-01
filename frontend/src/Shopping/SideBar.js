@@ -11,7 +11,7 @@ const SideBar = (props) => {
     let productCategories = new Set(
       props.data.map((product) => product.category)
     );
-    let array = Array.from(productCategories);
+    let array = Array.from(productCategories).sort();
     setCategories(array);
   }, []);
 
@@ -59,6 +59,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${colors.green};
   padding: 5px;
+  margin: 5px;
 `;
 
 export default SideBar;

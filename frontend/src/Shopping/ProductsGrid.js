@@ -11,7 +11,7 @@ const ProductsGrid = (props) => {
         <>
           {props.data.map((product) => {
             return (
-              <StyledLink to={`/products/${product._id}`}>
+              <StyledLink to={`/product/${product._id}`}>
                 <ProductContainer key={product._id}>
                   <Image src={product.imageSrc} alt="product for sale" />
                   <Title>{product.name}</Title>

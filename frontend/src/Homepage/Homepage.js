@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link as LinkBase } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import HomepageTop from "./HomepageTop";
 import Preview from "./Preview";
+import LoggedInHP from "./LoggedInHomePage";
+import ButtonLink from "../ButtonLink";
 
 const Homepage = () => {
+  const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
+  const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const [previewProducts, setPreviewProducts] = useState(null);
   const [sellers, setSellers] = useState(null);
   let isProducts = true;
@@ -18,7 +23,6 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("starting");
     fetch("/sellers/explore")
       .then((res) => res.json())
       .then((response) => setSellers(response.data))
@@ -26,32 +30,40 @@ const Homepage = () => {
   }, []);
 
   return (
-    <HomepageContainer>
-      {/* first section */}
-      <HomepageTop />
-      <SeparatorSection />
-      {/* second section */}
-      {previewProducts !== null && (
-        <div>
-          <SectionTitle>Explore what's for sale</SectionTitle>
-          <Preview data={previewProducts} isProducts={isProducts} />
-          <Link to="/products">
-            <Button>Start Shopping</Button>
-          </Link>
-        </div>
+    <>
+      {!loggedIn ? (
+        <HomepageContainer>
+          {/* first section */}
+          <HomepageTop />
+          <SeparatorSection />
+          {/* second section */}
+          {previewProducts !== null && (
+            <div>
+              <SectionTitle>Explore what's for sale</SectionTitle>
+              <Preview data={previewProducts} isProducts={isProducts} />
+              <ButtonLink path={"/products"} text={"Start Shopping"} />
+            </div>
+          )}
+          {/* third section */}
+          {sellers !== null && (
+            <div>
+              <SectionTitle>Selling online has never been so easy</SectionTitle>
+              <Subtitle>Check out our sellers</Subtitle>
+              <Preview data={sellers} isProducts={!isProducts} />
+              <ButtonLink path={"/selling"} text={"Start Selling"} />
+            </div>
+          )}
+        </HomepageContainer>
+      ) : (
+        <HomepageContainer>
+          <LoggedInHP
+            accountInfo={accountInfo}
+            loggedIn={loggedIn}
+            isProducts={isProducts}
+          />
+        </HomepageContainer>
       )}
-      {/* third section */}
-      {sellers !== null && (
-        <div>
-          <SectionTitle>Selling online has never been so easy</SectionTitle>
-          <Subtitle>Check out our sellers</Subtitle>
-          <Preview data={sellers} isProducts={!isProducts} />
-          <Link to="/selling">
-            <Button>Start Selling</Button>
-          </Link>
-        </div>
-      )}
-    </HomepageContainer>
+    </>
   );
 };
 
@@ -77,10 +89,11 @@ const Subtitle = styled.p`
   font-size: 16pt;
 `;
 
-const Button = styled.button`
-  position: relative;
-  left: 50%;
-`;
+// const StyledButtonLink = styled(ButtonLink)`
+//   position: relative;
+//   left: 50%;
+//   background-color: black;
+// `;
 
 const Link = styled(LinkBase)``;
 

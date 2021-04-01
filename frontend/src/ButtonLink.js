@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { colors } from "./GlobalStyles";
 
 const ButtonLink = ({ path, text }) => {
+  console.log("path:", path);
+  console.log("text:", text);
   return (
     <Container>
       <StyledLink to={path}>{text}</StyledLink>
@@ -18,7 +20,7 @@ const Container = styled.div`
   border-radius: 12px;
   border-style: none;
   width: 175px;
-  height: 45px;
+  height: 35px;
   position: relative;
 
   &:hover {

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-// import cartReducer from ".././Reducers/cartReducers";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import CartItem from "./CartItem";
 import { colors } from "../GlobalStyles";

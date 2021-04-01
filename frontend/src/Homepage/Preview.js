@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 
 import { colors } from "../GlobalStyles";
 
-// const Preview = (props) => {
 const Preview = ({ data, isProducts }) => {
-  console.log(isProducts);
   return (
     <Container>
       {data.map((item) => {
         return (
           <Link
-            to={isProducts ? `/products/${item._id}` : `/selling/${item._id}`}
+            to={isProducts ? `/product/${item._id}` : `/selling/${item._id}`}
           >
             <div key={item._id}>
               <Image src={item.imageSrc} alt="homepage image" />
