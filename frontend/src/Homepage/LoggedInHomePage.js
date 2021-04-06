@@ -45,7 +45,7 @@ const LoggedInHP = ({ accountInfo, loggedIn, isProducts }) => {
             <Preview data={sellerItems} isProducts={isProducts} />
           )}
           <ButtonLink path={"/selling/add"} text={"Add New"} />
-          <ButtonLink path={"/account/update"} text={"Update Account"} />
+          <ButtonLink path={"/update/account"} text={"Update Account"} />
         </>
       ) : (
         <>

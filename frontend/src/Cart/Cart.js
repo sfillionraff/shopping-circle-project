@@ -43,7 +43,6 @@ const Cart = () => {
           <h2 style={{ lineIndent: 20 }}>Your Cart: </h2>
           <CartContainer>
             {cartContents.map((item, index) => {
-              // return <p>{item.name}</p>;
               return <CartItem key={index} item={item} />;
             })}
             <TotalContainer>

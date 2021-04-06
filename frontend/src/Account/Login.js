@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { colors } from "../GlobalStyles";
-import { logIntoAccount } from "../Reducers/actions";
+import { logIntoAccount, logInError } from "../Reducers/actions";
 import Form from "../Form";
+// NOT SURE I DID THIS PROPERLY
+import { FormFunctions } from "../FormFunctions";
 
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
+  const errorLoggingIn = useSelector((state) => state.accountReducer.error);
 
   const [account, setAccount] = useState({
     email: "",
@@ -27,18 +30,23 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch("/account/login", {
-      method: "POST",
-      body: JSON.stringify(account),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-    })
-      .then((result) => result.json())
-      .then((response) => dispatch(logIntoAccount(response.data)))
-      .catch((error) => console.log(error));
+    if (account.email !== "" && account.password !== "") {
+      await fetch("/account/login", {
+        method: "POST",
+        body: JSON.stringify(account),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((response) => dispatch(logIntoAccount(response.data)))
+        .catch((error) => console.log(error));
+    } else {
+      dispatch(logInError(account, "Form not filled in properly"));
+      // not sure what to do here
+      console.log(errorLoggingIn);
+    }
   };
 
   useEffect(() => {
@@ -55,6 +63,9 @@ const Login = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
+      {errorLoggingIn !== "null" && (
+        <p style={{ color: "red" }}>Please fill in the form properly</p>
+      )}
     </>
   );
 };

@@ -89,12 +89,4 @@ const Subtitle = styled.p`
   font-size: 16pt;
 `;
 
-// const StyledButtonLink = styled(ButtonLink)`
-//   position: relative;
-//   left: 50%;
-//   background-color: black;
-// `;
-
-const Link = styled(LinkBase)``;
-
 export default Homepage;

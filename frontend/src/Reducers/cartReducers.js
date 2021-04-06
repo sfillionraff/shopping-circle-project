@@ -8,8 +8,8 @@ export default function cartReducer(state = initialState, action) {
     case "REMOVE_ITEM": {
       const copyState = [...state];
       const index = state.indexOf(action.item);
-      delete copyState[index];
-      return [...copyState];
+      copyState.splice(index, 1);
+      return copyState;
     }
     default:
       return state;

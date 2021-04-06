@@ -101,7 +101,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
         </>
       ) : formType === "addNewItem" ? (
         // form for seller to add new item
-        <>
+        <NewItemContainer>
           <Label>
             Product Name:
             <Input
@@ -120,37 +120,43 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
-          <Label>Select a Category:</Label>
-          <Select
-            name="category"
-            value={formData.category}
-            onChange={(e) => handleChange(e.target.value, e.target.name)}
-          >
-            <option value="category" name="category">
-              Electronics
-            </option>
-            <option value="category" name="category">
-              Sports
-            </option>
-            <option value="category" name="category">
-              Hobbies
-            </option>
-            <option value="category" name="category">
-              Household
-            </option>
-            <option value="category" name="category">
-              Clothing
-            </option>
-          </Select>
-          <Label>
-            Price:
-            <Input
-              type="number"
-              value={formData.price}
-              name="price"
+          <div>
+            <Label>Select a Category:</Label>
+            <Select
+              style={{ width: 100, margin: 5 }}
+              name="category"
+              value={formData.category}
               onChange={(e) => handleChange(e.target.value, e.target.name)}
-            />
-          </Label>
+            >
+              <option value="category" name="category">
+                Electronics
+              </option>
+              <option value="category" name="category">
+                Sports
+              </option>
+              <option value="category" name="category">
+                Hobbies
+              </option>
+              <option value="category" name="category">
+                Household
+              </option>
+              <option value="category" name="category">
+                Clothing
+              </option>
+            </Select>
+          </div>
+          <div>
+            <Label>
+              Price:
+              <Input
+                style={{ width: 50 }}
+                type="text"
+                value={formData.price}
+                name="price"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+            </Label>
+          </div>
           <Label>
             Description:
             <Textarea
@@ -168,8 +174,12 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
-          <Button type="submit" value="Add Product" />
-        </>
+          <Button
+            type="submit"
+            value="Add Product"
+            style={{ top: 370, left: 240 }}
+          />
+        </NewItemContainer>
       ) : formType === "billingInfo" ? (
         // form for billing information on purchase
         <>
@@ -317,6 +327,14 @@ const Textarea = styled.textarea`
   resize: none;
   width: 100%;
   height: 100px;
+  border-radius: 12px;
+  outline: none;
+  border: none;
+
+  &:focus {
+    border: 1px solid ${colors.green};
+    outline: none;
+  }
 `;
 
 const Select = styled.select`
@@ -337,6 +355,11 @@ const Button = styled.input`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const NewItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Form;

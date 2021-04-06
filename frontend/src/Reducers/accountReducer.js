@@ -1,6 +1,7 @@
 const initialState = {
   loggedIn: false,
   accountInfo: null,
+  error: null,
 };
 
 export default function accountReducer(state = initialState, action) {
@@ -17,6 +18,13 @@ export default function accountReducer(state = initialState, action) {
         ...state,
         loggedIn: false,
         accountInfo: null,
+      };
+    }
+    case "LOG_IN_ERROR": {
+      return {
+        ...state,
+        loggedIn: false,
+        error: action.error,
       };
     }
     default:

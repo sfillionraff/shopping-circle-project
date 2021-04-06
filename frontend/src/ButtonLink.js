@@ -5,37 +5,44 @@ import styled from "styled-components";
 import { colors } from "./GlobalStyles";
 
 const ButtonLink = ({ path, text }) => {
-  console.log("path:", path);
-  console.log("text:", text);
   return (
-    <Container>
+    <>
+      {/* <Container> */}
       <StyledLink to={path}>{text}</StyledLink>
-    </Container>
+      {/* </Container> */}
+    </>
   );
 };
 
-const Container = styled.div`
-  background-color: ${colors.green};
-  font-size: 14pt;
-  border-radius: 12px;
-  border-style: none;
-  width: 175px;
-  height: 35px;
-  position: relative;
+// const Container = styled.div`
+//   background-color: ${colors.green};
+//   border-radius: 12px;
+//   border-style: none;
+//   width: 150px;
+//   height: 35px;
+//   position: relative;
+//   margin: auto;
 
-  &:hover {
-    cursor: pointer;
-  }
-`;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `;
 
 const StyledLink = styled(Link)`
   color: white;
   text-decoration: none;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  top: 15%;
-  left: 10%;
+  /* position: absolute; */
+  margin: auto;
+  font-size: 12pt;
+  padding: 2px 20px;
+  position: relative;
+  border-radius: 12px;
+  border-style: none;
+  background-color: ${colors.green};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default ButtonLink;

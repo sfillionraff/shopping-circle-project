@@ -73,7 +73,7 @@ function App() {
         </Route>
       </Switch>
       <Switch>
-        <Route exact path="/account/update">
+        <Route exact path="/update/account">
           <h1>update account information page</h1>
         </Route>
       </Switch>

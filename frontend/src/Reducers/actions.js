@@ -18,3 +18,9 @@ export const logIntoAccount = (item) => ({
 export const logOutAccount = () => ({
   type: "LOG_OUT_ACCOUNT",
 });
+
+export const logInError = (item, error) => ({
+  type: "LOG_IN_ERROR",
+  item,
+  error,
+});
