@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import ButtonLink from "../ButtonLink";
 import { logOutAccount } from "../Reducers/actions";
+import Preview from "../Homepage/Preview";
+import { colors } from "../GlobalStyles";
 
 const AccountHomepage = () => {
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
@@ -13,7 +15,7 @@ const AccountHomepage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [sellerProducts, setSellerProducts] = useState(null);
-
+  const isProducts = true;
   useEffect(() => {
     fetch("/products")
       .then((res) => res.json())
@@ -29,43 +31,37 @@ const AccountHomepage = () => {
   return (
     <>
       {!loggedIn ? (
-        <div>
+        <NotLoggedInContainer>
           <div>
             <h2>Making an account is easy!</h2>
-            {/* <p>
-              You can be a buyer or a seller, depending on what you want to do.
-            </p> */}
-            <Link to="/account/create">
-              <button>Create Account</button>
-            </Link>
+            <ButtonLink path={"/account/create"} text={"Create Account"} />
           </div>
           <div>
             <h2>Already a part of the Shopping Circle Community?</h2>
-            <Link to="/account/login">
-              <button>Login</button>
-            </Link>
+            <ButtonLink path={"/account/login"} text={"Login"} />
           </div>
-        </div>
+        </NotLoggedInContainer>
       ) : (
         <div>
           <div>
-            <h1>Hi {accountInfo.firstName}</h1>
+            <h1>Hi {accountInfo.firstName}!</h1>
             {/* THIS LINK DOESNT WORK */}
-            <ButtonLink path="/account/update" text="Update Account" />
-            <button
+            <ButtonLink path={"/update/account"} text={"Update Account"} />
+            <Button
               onClick={() => {
                 dispatch(logOutAccount());
               }}
             >
               Log out
-            </button>
+            </Button>
           </div>
-          <div>
+          <SellerProductsContainer>
             <h1>What's for sale?</h1>
-            <p>Your items</p>
+            <p>Your products</p>
             {sellerProducts && (
               <>
-                {sellerProducts.map((product) => {
+                <Preview data={sellerProducts} isProducts={isProducts} />
+                {/* {sellerProducts.map((product) => {
                   return (
                     <>
                       <img src={product.imageSrc} alt={product.name} />
@@ -73,15 +69,48 @@ const AccountHomepage = () => {
                       <p>{product.price}</p>
                     </>
                   );
-                })}
+                })} */}
               </>
             )}
-          </div>
+          </SellerProductsContainer>
         </div>
       )}
     </>
   );
 };
+
+const NotLoggedInContainer = styled.div`
+  display: flex;
+  background-color: ${colors.yellow};
+  width: 75%;
+  height: 150px;
+  position: relative;
+  top: 5%;
+  left: 15%;
+  justify-content: space-around;
+  color: white;
+  border-radius: 12px;
+
+  & div {
+    margin: 15px;
+  }
+`;
+
+const Button = styled.button`
+  height: 30px;
+  width: 150px;
+  padding: 0;
+`;
+
+const SellerProductsContainer = styled.div`
+  & h1 {
+    margin: 5px;
+  }
+
+  & p {
+    margin: 5px;
+  }
+`;
 
 export default AccountHomepage;
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { colors } from "../GlobalStyles";
 import Preview from ".././Homepage/Preview";
+import ButtonLink from "../ButtonLink";
 
 const SellingHomepage = () => {
   const [sellers, setSellers] = useState(null);
@@ -18,7 +19,6 @@ const SellingHomepage = () => {
 
   return (
     <>
-      {/* {!loggedIn ? ( */}
       <div>
         <TopContainer>
           <h1>Selling has never been so easy</h1>
@@ -26,47 +26,30 @@ const SellingHomepage = () => {
             src="https://i.cbc.ca/1.5164075.1559771487!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/selling-online.jpg"
             alt="selling things online"
           />
-          <p>
-            To sell on the Shopping Circle, you just need a camera and some
-            things to sell!
-          </p>
+          <p>To sell on the Shopping Circle, you just need an account.</p>
           <p>No fees to start out. What are you waiting for?</p>
         </TopContainer>
         <div>
-          <h1>Explore sellers</h1>
+          <h1>Explore our sellers</h1>
           {sellers !== null && (
             <Preview data={sellers} isProducts={isProducts} />
           )}
         </div>
-        <h1>Join the Shopping Circle Community</h1>
+        <h1 style={{ textAlign: "center" }}>
+          Join the Shopping Circle Community
+        </h1>
         <BottomContainer>
           <AccountOptions>
             <h2>Want to get started?</h2>
-            <p>Create an account and start adding items to sell immediately!</p>
-            <Link to="/account/create">
-              <button>Create an Account</button>
-            </Link>
+            {/* <p>Create an account and start adding items to sell immediately!</p> */}
+            <ButtonLink path={"/account/create"} text={"Create an Account"} />
           </AccountOptions>
           <AccountOptions>
             <h2>Already one of our sellers?</h2>
-            <Link to="/account/login">
-              <button>Login</button>
-            </Link>
+            <ButtonLink path={"/account/login"} text={"Login"} />
           </AccountOptions>
         </BottomContainer>
       </div>
-      {/* ) : loggedIn && accountInfo.type === "seller" ? (
-       <>
-       <h1>Hello {accountInfo.firstName}!</h1>
-       <ButtonLink path={"/selling/add"} text={"Add New"} />
-       <ButtonLink path={"/account/update"} text={"Update Account"} />
-      </>
-      ) : (
-      <>
-      <h1> Want to become a seller? </h1>
-      <Link to="/account/create">Create Account</Link>
-      </> */}
-      {/* )} */}
     </>
   );
 };
@@ -77,13 +60,22 @@ const TopContainer = styled.div`
 
 const BottomContainer = styled.div`
   display: flex;
-  background-color: ${colors.yellow};
   justify-content: center;
   margin-top: 10px;
+
+  & h2 {
+    color: white;
+    text-align: center;
+    font-size: 16pt;
+  }
 `;
 
 const AccountOptions = styled.div`
   width: 300px;
+  background-color: ${colors.yellow};
+  padding: 10px;
+  margin: 5px;
+  border-radius: 12px;
 `;
 
 // ADD CONDITION FOR IF USER IS LOGGED IN
