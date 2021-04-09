@@ -42,7 +42,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               type="text"
               name="firstName"
               value={formData.firstName}
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              onChange={(e) => handleChange(e)}
             />
           </Label>
           <Label>
@@ -51,7 +51,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               type="text"
               name="lastName"
               value={formData.lastName}
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              onChange={(e) => handleChange(e)}
             />
           </Label>
           <Label>
@@ -60,7 +60,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              onChange={(e) => handleChange(e)}
             />
           </Label>
           <Label>
@@ -69,14 +69,14 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               type="password"
               name="password"
               value={formData.password}
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              onChange={(e) => handleChange(e)}
             />
           </Label>
           <Label> Choose a type:</Label>
           <Select
             name="type"
             value={formData.type}
-            onChange={(e) => handleChange(e.target.value, e.target.name)}
+            onChange={(e) => handleChange(e)}
           >
             <option value="type" name="type">
               Type
@@ -94,7 +94,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
               type="image"
               name="imageSrc"
               value={formData.imageSrc}
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              onChange={(e) => handleChange(e)}
             />
           </Label>
           <Button type="submit" value="Create Account" style={{ right: 10 }} />
@@ -116,7 +116,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             <Input
               type="text"
               value={formData.brand}
-              name="productBrand"
+              name="brand"
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
@@ -170,7 +170,7 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             <Input
               type="text"
               value={formData.imageSrc}
-              name="productImage"
+              name="imageSrc"
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
           </Label>
@@ -301,6 +301,86 @@ const Form = ({ formData, formType, handleSubmit, handleChange }) => {
             style={{ right: 15, top: 250 }}
           />
         </>
+      ) : formType === "updateItem" ? (
+        <NewItemContainer>
+          <Label>
+            Product Name:
+            <Input
+              type="text"
+              value={formData.name}
+              name="name"
+              onChange={(e) => handleChange(e.target.value, e.target.name)}
+            />
+          </Label>
+          <Label>
+            Brand:
+            <Input
+              type="text"
+              value={formData.brand}
+              name="band"
+              onChange={(e) => handleChange(e.target.value, e.target.name)}
+            />
+          </Label>
+          <div>
+            <Label>Select a Category:</Label>
+            <Select
+              style={{ width: 100, margin: 5 }}
+              name="category"
+              value={formData.category}
+              onChange={(e) => handleChange(e.target.value, e.target.name)}
+            >
+              <option value="category" name="category">
+                Electronics
+              </option>
+              <option value="category" name="category">
+                Sports
+              </option>
+              <option value="category" name="category">
+                Hobbies
+              </option>
+              <option value="category" name="category">
+                Household
+              </option>
+              <option value="category" name="category">
+                Clothing
+              </option>
+            </Select>
+          </div>
+          <div>
+            <Label>
+              Price:
+              <Input
+                style={{ width: 50 }}
+                type="text"
+                value={formData.price}
+                name="price"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+            </Label>
+          </div>
+          <Label>
+            Description:
+            <Textarea
+              value={formData.description}
+              name="description"
+              onChange={(e) => handleChange(e.target.value, e.target.name)}
+            />
+          </Label>
+          <Label>
+            Picture:
+            <Input
+              type="text"
+              value={formData.imageSrc}
+              name="imageSrc"
+              onChange={(e) => handleChange(e.target.value, e.target.name)}
+            />
+          </Label>
+          <Button
+            type="submit"
+            value="Update Product"
+            style={{ top: 370, left: 230 }}
+          />
+        </NewItemContainer>
       ) : null}
     </form>
   );

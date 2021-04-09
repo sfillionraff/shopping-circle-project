@@ -6,6 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import CartItem from "./CartItem";
 import { colors } from "../GlobalStyles";
+import ButtonLink from "../ButtonLink";
 
 const Cart = () => {
   const history = useHistory();
@@ -34,9 +35,9 @@ const Cart = () => {
         <NoCartContainer>
           <EmptyCart />
           <h2>Your cart is empty!</h2>
-          <Link to="/products">
-            <button>Start Shopping</button>
-          </Link>
+          <ButtonLinkContainer>
+            <ButtonLink path={"/products"} text={"Start Shopping"} />
+          </ButtonLinkContainer>
         </NoCartContainer>
       ) : (
         <>
@@ -72,6 +73,11 @@ const EmptyCart = styled(MdRemoveShoppingCart)`
   margin-left: auto;
   margin-right: auto;
   left: 75px;
+`;
+
+const ButtonLinkContainer = styled.div`
+  position: relative;
+  left: 2%;
 `;
 
 const CartContainer = styled.div`
