@@ -11,6 +11,7 @@ import ProductDetails from "./Shopping/ProductDetails";
 import SellingHomepage from "./Selling/SellingHomepage";
 import SellerProfile from "./Selling/SellerProfile";
 import AddNewItem from "./Selling/AddNewItem";
+import UpdateItem from "./Selling/UpdateItem";
 import AccountHomepage from "./Account/AccountHomepage";
 import LoginAccount from "./Account/LoginAccount";
 import Cart from "./Cart/Cart";
@@ -48,8 +49,8 @@ function App() {
         </Route>
       </Switch>
       <Switch>
-        <Route exact path="/selling/update">
-          <h1>update item for sale</h1>
+        <Route exact path="/selling/update/:_id">
+          <UpdateItem />
         </Route>
       </Switch>
       <Switch>
@@ -85,6 +86,16 @@ function App() {
       <Switch>
         <Route exact path="/account">
           <AccountHomepage />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/about-us">
+          <h1>about us</h1>
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/environment">
+          <h1>errybody loves the environment</h1>
         </Route>
       </Switch>
       <Switch>

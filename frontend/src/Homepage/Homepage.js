@@ -41,7 +41,9 @@ const Homepage = () => {
             <div>
               <SectionTitle>Explore what's for sale</SectionTitle>
               <Preview data={previewProducts} isProducts={isProducts} />
-              <ButtonLink path={"/products"} text={"Start Shopping"} />
+              <ButtonLinkContainer>
+                <ButtonLink path={"/products"} text={"Start Shopping"} />
+              </ButtonLinkContainer>
             </div>
           )}
           {/* third section */}
@@ -50,7 +52,9 @@ const Homepage = () => {
               <SectionTitle>Selling online has never been so easy</SectionTitle>
               <Subtitle>Check out our sellers</Subtitle>
               <Preview data={sellers} isProducts={!isProducts} />
-              <ButtonLink path={"/selling"} text={"Start Selling"} />
+              <ButtonLinkContainer>
+                <ButtonLink path={"/selling"} text={"Start Selling"} />
+              </ButtonLinkContainer>
             </div>
           )}
         </HomepageContainer>
@@ -87,6 +91,12 @@ const SectionTitle = styled.h2`
 const Subtitle = styled.p`
   margin-left: 5px;
   font-size: 16pt;
+`;
+
+const ButtonLinkContainer = styled.div`
+  position: relative;
+  left: 45%;
+  margin: 15px;
 `;
 
 export default Homepage;

@@ -21,26 +21,42 @@ const NavBar = () => {
           <MenuItem
             to="/products"
             style={{ width: 50, height: 30 }}
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             Shop
           </MenuItem>
           <MenuItem
             to="/selling"
             style={{ width: 40, height: 30 }}
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             Sell
           </MenuItem>
           <MenuItem
             to="/cart"
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             <AiOutlineShoppingCart />
           </MenuItem>
           <MenuItem
             to="/account"
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             <RiAccountCircleLine />
           </MenuItem>
@@ -50,16 +66,13 @@ const NavBar = () => {
           <MenuItem to="/">
             <AiOutlineHome />
           </MenuItem>
-          {/* <MenuItem
-            to="/selling"
-            style={{ width: 40, height: 30 }}
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
-          >
-            Sell
-          </MenuItem> */}
           <MenuItem
             to="/account"
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             <Image src={accountInfo.imageSrc} alt="account picture" />
           </MenuItem>
@@ -72,19 +85,31 @@ const NavBar = () => {
           <MenuItem
             to="/products"
             style={{ width: 50, height: 30 }}
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             Shop
           </MenuItem>
           <MenuItem
             to="/cart"
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             <AiOutlineShoppingCart />
           </MenuItem>
           <MenuItem
             to="/account"
-            activeStyle={{ backgroundColor: colors.green, color: "white" }}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: colors.yellow,
+              color: colors.yellow,
+            }}
           >
             <Image src={accountInfo.imageSrc} alt="account picture" />
           </MenuItem>

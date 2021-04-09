@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { colors } from "../GlobalStyles";
 import { addItem } from "../Reducers/actions";
+import ButtonLink from "../ButtonLink";
 
 const ProductDetails = () => {
+  const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
+  const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const { _id } = useParams();
   const [product, setProduct] = useState(null);
   const [productSeller, setProductSeller] = useState(null);
+  const history = useHistory();
+  const [itemDeleted, setItemDeleted] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,6 +36,28 @@ const ProductDetails = () => {
         });
     }
   }, [product]);
+
+  const deleteItem = () => {
+    fetch(`/deleteItem/${_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((result) => result.json)
+      .then((response) => setItemDeleted(true))
+      .catch((error) => {
+        console.log(error);
+        setItemDeleted(false);
+      });
+  };
+
+  useEffect(() => {
+    if (itemDeleted) {
+      history.push("/success/delete");
+    }
+  }, [itemDeleted]);
 
   return (
     <>
@@ -54,14 +81,26 @@ const ProductDetails = () => {
                 </span>
               )}
               <p>Category: {product.category}</p>
-              <button onClick={() => dispatch(addItem(product))}>
-                Add to Cart
-              </button>
+              {!loggedIn || accountInfo.type === "buyer" ? (
+                <button onClick={() => dispatch(addItem(product))}>
+                  Add to Cart
+                </button>
+              ) : (
+                <>
+                  <ButtonLink
+                    path={`/selling/update/${_id}`}
+                    text={"Update Item"}
+                  />
+                  <button
+                    onClick={() => deleteItem()}
+                    style={{ width: 130, height: 30, padding: 2, fontSize: 16 }}
+                  >
+                    Delete Item{" "}
+                  </button>
+                </>
+              )}
             </InfoContainer>
           </Container>
-          <div>
-            <h2>More like this...</h2>
-          </div>
         </>
       )}
     </>

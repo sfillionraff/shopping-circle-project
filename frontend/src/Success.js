@@ -22,6 +22,22 @@ const Success = () => {
             items for sale
           </p>
         </>
+      ) : type === "update" ? (
+        <>
+          <h1>Item has been updated!</h1>
+          <p>
+            Go to <StyledLink to="/account">Account</StyledLink> to see all your
+            items for sale
+          </p>
+        </>
+      ) : type === "delete" ? (
+        <>
+          <h1>Item has been deleted!</h1>
+          <p>
+            Go to <StyledLink to="/account">Account</StyledLink> to see all your
+            items for sale
+          </p>
+        </>
       ) : null}
     </Container>
   );

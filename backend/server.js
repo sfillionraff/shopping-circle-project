@@ -17,6 +17,8 @@ const {
   createAccount,
   login,
   updateProducts,
+  updateItem,
+  deleteItem,
 } = require("./handlers");
 
 express()
@@ -52,6 +54,11 @@ express()
 
   // update purchased products
   .patch("/updateProducts", updateProducts)
+
+  // update a single item for sale
+  .put("/updateItem", updateItem)
+
+  .delete("/deleteItem/:_id", deleteItem)
 
   .get("*", (req, res) => {
     res.status(404).json({

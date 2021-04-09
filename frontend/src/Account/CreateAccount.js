@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { logIntoAccount, logInError } from "../Reducers/actions";
 import Form from "../Form";
+// import useForm from "../FormFunctions";
 
 const CreateAccount = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,13 @@ const CreateAccount = () => {
     type: "",
     imageSrc: "",
   });
+
+  // const accountLink = "/account/addNew";
+  // const { handleChange, validateForm, handleSubmit } = useForm(
+  //   account,
+  //   setAccount,
+  //   accountLink
+  // );
 
   const handleChange = (value, name) => {
     setAccount({ ...account, [name]: value });
@@ -64,7 +72,7 @@ const CreateAccount = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      {errorLoggingIn !== "null" && (
+      {errorLoggingIn !== null && (
         <p style={{ color: "red" }}>Please fill in the form properly</p>
       )}
     </>

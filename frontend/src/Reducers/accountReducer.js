@@ -11,6 +11,7 @@ export default function accountReducer(state = initialState, action) {
         ...state,
         loggedIn: true,
         accountInfo: action.item,
+        error: null,
       };
     }
     case "LOG_OUT_ACCOUNT": {
@@ -18,6 +19,7 @@ export default function accountReducer(state = initialState, action) {
         ...state,
         loggedIn: false,
         accountInfo: null,
+        error: null,
       };
     }
     case "LOG_IN_ERROR": {

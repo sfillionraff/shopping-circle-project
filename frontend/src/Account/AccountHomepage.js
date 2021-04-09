@@ -6,46 +6,60 @@ import { useHistory } from "react-router-dom";
 
 import ButtonLink from "../ButtonLink";
 import { logOutAccount } from "../Reducers/actions";
-import Preview from "../Homepage/Preview";
 import { colors } from "../GlobalStyles";
 
 const AccountHomepage = () => {
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [sellerProducts, setSellerProducts] = useState(null);
-  const isProducts = true;
-  useEffect(() => {
-    fetch("/products")
-      .then((res) => res.json())
-      .then((response) => {
-        const filteredProducts = response.data.filter((product) => {
-          return product.sellerId === accountInfo._id;
-        });
-        setSellerProducts(filteredProducts);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  // const history = useHistory();
+  // const [sellerProducts, setSellerProducts] = useState(null);
+  // const isProducts = true;
+  // useEffect(() => {
+  //   fetch("/products")
+  //     .then((res) => res.json())
+  //     .then((response) => {
+  //       const filteredProducts = response.data.filter((product) => {
+  //         return product.sellerId === accountInfo._id;
+  //       });
+  //       setSellerProducts(filteredProducts);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   return (
     <>
       {!loggedIn ? (
         <NotLoggedInContainer>
-          <div>
+          <SignInOptions>
             <h2>Making an account is easy!</h2>
-            <ButtonLink path={"/account/create"} text={"Create Account"} />
-          </div>
-          <div>
+            <ButtonLinkContainerOne>
+              <ButtonLink path={"/account/create"} text={"Create Account"} />
+            </ButtonLinkContainerOne>
+          </SignInOptions>
+          <SignInOptions>
             <h2>Already a part of the Shopping Circle Community?</h2>
-            <ButtonLink path={"/account/login"} text={"Login"} />
-          </div>
+            <ButtonLinkContainerTwo>
+              <ButtonLink path={"/account/login"} text={"Login"} />
+            </ButtonLinkContainerTwo>
+          </SignInOptions>
         </NotLoggedInContainer>
       ) : (
         <div>
           <div>
-            <h1>Hi {accountInfo.firstName}!</h1>
-            {/* THIS LINK DOESNT WORK */}
+            <h1>Account Information</h1>
+          </div>
+          <UserProfileContainer>
+            <img src={accountInfo.imageSrc} alt="profile picture" />
+            <AccountInfoContainer>
+              <h2>
+                Name:
+                {accountInfo.firstName} {accountInfo.lastName}
+              </h2>
+              <p>Email: {accountInfo.email}</p>
+            </AccountInfoContainer>
+          </UserProfileContainer>
+          <ButtonContainer>
             <ButtonLink path={"/update/account"} text={"Update Account"} />
             <Button
               onClick={() => {
@@ -54,25 +68,7 @@ const AccountHomepage = () => {
             >
               Log out
             </Button>
-          </div>
-          <SellerProductsContainer>
-            <h1>What's for sale?</h1>
-            <p>Your products</p>
-            {sellerProducts && (
-              <>
-                <Preview data={sellerProducts} isProducts={isProducts} />
-                {/* {sellerProducts.map((product) => {
-                  return (
-                    <>
-                      <img src={product.imageSrc} alt={product.name} />
-                      <p>{product.name}</p>
-                      <p>{product.price}</p>
-                    </>
-                  );
-                })} */}
-              </>
-            )}
-          </SellerProductsContainer>
+          </ButtonContainer>
         </div>
       )}
     </>
@@ -81,7 +77,6 @@ const AccountHomepage = () => {
 
 const NotLoggedInContainer = styled.div`
   display: flex;
-  background-color: ${colors.yellow};
   width: 75%;
   height: 150px;
   position: relative;
@@ -89,11 +84,13 @@ const NotLoggedInContainer = styled.div`
   left: 15%;
   justify-content: space-around;
   color: white;
-  border-radius: 12px;
+`;
 
-  & div {
-    margin: 15px;
-  }
+const SignInOptions = styled.div`
+  margin: 15px;
+  padding: 10px;
+  background-color: ${colors.yellow};
+  border-radius: 12px;
 `;
 
 const Button = styled.button`
@@ -102,14 +99,49 @@ const Button = styled.button`
   padding: 0;
 `;
 
-const SellerProductsContainer = styled.div`
-  & h1 {
+const UserProfileContainer = styled.div`
+  position: relative;
+  left: 5%;
+  background-color: ${colors.yellow};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 200px;
+  border-radius: 12px;
+
+  & img {
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+`;
+
+const AccountInfoContainer = styled.div`
+  margin-right: 10px;
+  & h2 {
     margin: 5px;
   }
 
   & p {
     margin: 5px;
   }
+`;
+
+const ButtonContainer = styled.div`
+  position: relative;
+  left: 15%;
+`;
+
+const ButtonLinkContainerOne = styled.div`
+  position: relative;
+  left: 25%;
+`;
+
+const ButtonLinkContainerTwo = styled.div`
+  position: relative;
+  left: 40%;
 `;
 
 export default AccountHomepage;

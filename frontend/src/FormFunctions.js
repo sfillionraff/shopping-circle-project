@@ -1,39 +1,41 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { logIntoAccount, error } from "./Reducers/actions";
+import { logIntoAccount, logInError } from "./Reducers/actions";
 
-// export all const;
-
-export const FormFunctions = () => {
+const useForm = (state, stateFunction, link) => {
   const dispatch = useDispatch();
-  const loginError = useSelector((state) => state.accountReducer.error);
-  const handleChange = (value, name, state, setState) => {
-    setState({
+  const [isValid, setIsValid] = useState();
+  const handleChange = (event, state, stateFunction) => {
+    const { name, value } = event.target;
+    stateFunction({
       ...state,
       [name]: value,
     });
+    return state;
   };
 
-  const formValidation = (state) => {
+  const validateForm = (state) => {
     let properties = Object.keys(state);
-    let isValid = properties.map((property) => {
-      if (state.property !== "") {
+    let valid = properties.map((property) => {
+      if (state[property] !== "") {
         return true;
       } else {
         return false;
       }
     });
-    if (isValid) {
+    if (valid) {
+      setIsValid(true);
       return true;
     } else {
+      setIsValid(false);
       return false;
     }
   };
 
   const handleSubmit = async (e, state, link) => {
     e.preventDefault();
-    if (formValidation) {
+    if (isValid) {
       await fetch(link, {
         method: "POST",
         body: JSON.stringify(state),
@@ -44,7 +46,53 @@ export const FormFunctions = () => {
       })
         .then((result) => result.json())
         .then((response) => dispatch(logIntoAccount(response.data)))
-        .catch((error) => console.log(error));
+        .catch((error) => dispatch(logInError(state, error)));
     }
   };
 };
+
+// const useHandleChange = (e, state, stateFunction) => {
+//   const { name, value } = e.target;
+//   stateFunction({
+//     ...state,
+//     [name]: value,
+//   });
+//   return state;
+// };
+
+// const useFormValidation = (state) => {
+//   let properties = Object.keys(state);
+//   let isValid = properties.map((property) => {
+//     if (state[property] !== "") {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
+//   if (isValid) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
+
+// import { logIntoAccount, logInError } from "./Reducers/actions";
+// const useAccountSubmit = async (e, state, link) => {
+//   const dispatch = useDispatch();
+//   e.preventDefault();
+//   if (useFormValidation()) {
+//     await fetch(link, {
+//       method: "POST",
+//       body: JSON.stringify(state),
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((result) => result.json())
+//       .then((response) => dispatch(logIntoAccount(response.data)))
+//       .catch((error) => dispatch(logInError(state, error)));
+//   }
+// };
+
+export default useForm;

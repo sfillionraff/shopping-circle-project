@@ -44,8 +44,10 @@ const LoggedInHP = ({ accountInfo, loggedIn, isProducts }) => {
           {sellerItems !== null && (
             <Preview data={sellerItems} isProducts={isProducts} />
           )}
-          <ButtonLink path={"/selling/add"} text={"Add New"} />
-          <ButtonLink path={"/update/account"} text={"Update Account"} />
+          <ButtonLinkContainer>
+            <ButtonLink path={"/selling/add"} text={"Add New"} />
+            <ButtonLink path={"/update/account"} text={"Update Account"} />
+          </ButtonLinkContainer>
         </>
       ) : (
         <>
@@ -53,7 +55,9 @@ const LoggedInHP = ({ accountInfo, loggedIn, isProducts }) => {
           {randomProducts !== null && (
             <Preview data={randomProducts} isProducts={isProducts} />
           )}
-          <ButtonLink path={"/products"} text={"Start Shopping"} />
+          <ButtonLinkContainer>
+            <ButtonLink path={"/products"} text={"Start Shopping"} />
+          </ButtonLinkContainer>
         </>
       )}
     </>
@@ -64,6 +68,12 @@ const SectionTitle = styled.h2`
   margin-left: 5px;
   margin-top: 100px;
   font-size: 24pt;
+`;
+
+const ButtonLinkContainer = styled.div`
+  position: relative;
+  left: 45%;
+  margin: 15px;
 `;
 
 export default LoggedInHP;

@@ -13,6 +13,7 @@ const Checkout = () => {
     return product._id;
   });
   const [success, setSuccess] = useState();
+  const [checkoutError, setCheckoutError] = useState(null);
 
   const getTotal = (items) => {
     let prices = items.map((item) => {
@@ -52,21 +53,29 @@ const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/updateProducts", {
-      method: "PATCH",
-      body: JSON.stringify(productIds),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((result) => result.json())
-      // .then((response) => console.log(response))
-      .catch((error) => {
-        console.log(error);
-        setSuccess(false);
-      });
-    setSuccess(true);
+    let checkoutValues = Object.values(checkoutForm);
+    let payValues = Object.values(payInfo);
+    let checkoutValid = checkoutValues.some((value) => value === "");
+    let payValid = payValues.some((value) => value === "");
+    if (!checkoutValid && !payValid) {
+      fetch("/updateProducts", {
+        method: "PATCH",
+        body: JSON.stringify(productIds),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((response) => setSuccess(true))
+        .catch((error) => {
+          console.log(error);
+          setSuccess(false);
+          setCheckoutError(true);
+        });
+    } else {
+      setCheckoutError(true);
+    }
   };
 
   useEffect(() => {
@@ -77,16 +86,8 @@ const Checkout = () => {
 
   return (
     <>
+      <h1>Checkout</h1>
       <Container>
-        <BillingContainer>
-          <ContainerTitle>Billing Information</ContainerTitle>
-          <Form
-            formData={checkoutForm}
-            formType={"billingInfo"}
-            handleSubmit={null}
-            handleChange={handleChangeBilling}
-          />
-        </BillingContainer>
         <CartContainer>
           <ContainerTitle>Cart Overview</ContainerTitle>
           {cartContents && (
@@ -106,6 +107,15 @@ const Checkout = () => {
           )}
           <h4>Total: ${getTotal(cartContents)}</h4>
         </CartContainer>
+        <BillingContainer>
+          <ContainerTitle>Billing Information</ContainerTitle>
+          <Form
+            formData={checkoutForm}
+            formType={"billingInfo"}
+            handleSubmit={null}
+            handleChange={handleChangeBilling}
+          />
+        </BillingContainer>
         <CardContainer>
           <ContainerTitle>Payment Information</ContainerTitle>
           <Form
@@ -114,6 +124,11 @@ const Checkout = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChangeCard}
           />
+          {checkoutError !== null && (
+            <p style={{ color: "red", fontSize: 12 }}>
+              Please fill in the form properly
+            </p>
+          )}
         </CardContainer>
       </Container>
     </>
@@ -122,6 +137,9 @@ const Checkout = () => {
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 75%;
+  margin-top: 50px;
 `;
 
 const ContainerTitle = styled.h1`
@@ -146,7 +164,7 @@ const CartContainer = styled.div`
   top: 10%;
   left: 5%;
   width: 225px;
-  max-height: 100%;
+  max-height: 400px;
   padding: 15px;
   background-color: ${colors.yellow};
   border-radius: 12px;

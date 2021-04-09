@@ -310,6 +310,79 @@ const updateProducts = async (req, res) => {
     });
 };
 
+const updateItem = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const itemToUpdate = req.body;
+  const productId = itemToUpdate._id;
+  await db
+    .collection("products")
+    .updateOne(
+      { _id: productId },
+      {
+        name: itemToUpdate.name,
+        category: itemToUpdate.category,
+        price: itemToUpdate.price,
+        description: itemToUpdate.description,
+        imageSrc: itemToUpdate.imageSrc,
+      }
+    )
+    .then((result) => {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Success!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        data: `Product ID: ${itemToUpdate._id}`,
+        error,
+        message: "Products not updated successfully",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
+const deleteItem = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const productId = req.params._id;
+  console.log(productId);
+  await db
+    .collection("products")
+    .deleteOne({ _id: productId })
+    .then((result) => {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Success!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        data: `Product ID: ${productId}`,
+        error,
+        message: "Products not updated successfully",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
 module.exports = {
   getProducts,
   getSomeProducts,
@@ -320,4 +393,6 @@ module.exports = {
   createAccount,
   login,
   updateProducts,
+  updateItem,
+  deleteItem,
 };

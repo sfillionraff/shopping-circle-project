@@ -42,11 +42,15 @@ const SellingHomepage = () => {
           <AccountOptions>
             <h2>Want to get started?</h2>
             {/* <p>Create an account and start adding items to sell immediately!</p> */}
-            <ButtonLink path={"/account/create"} text={"Create an Account"} />
+            <ButtonLinkContainerOne>
+              <ButtonLink path={"/account/create"} text={"Create an Account"} />
+            </ButtonLinkContainerOne>
           </AccountOptions>
           <AccountOptions>
             <h2>Already one of our sellers?</h2>
-            <ButtonLink path={"/account/login"} text={"Login"} />
+            <ButtonLinkContainerTwo>
+              <ButtonLink path={"/account/login"} text={"Login"} />
+            </ButtonLinkContainerTwo>
           </AccountOptions>
         </BottomContainer>
       </div>
@@ -78,6 +82,14 @@ const AccountOptions = styled.div`
   border-radius: 12px;
 `;
 
-// ADD CONDITION FOR IF USER IS LOGGED IN
+const ButtonLinkContainerOne = styled.div`
+  position: relative;
+  left: 20%;
+`;
+
+const ButtonLinkContainerTwo = styled.div`
+  position: relative;
+  left: 30%;
+`;
 
 export default SellingHomepage;

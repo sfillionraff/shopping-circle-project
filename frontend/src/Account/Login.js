@@ -15,7 +15,7 @@ const Login = () => {
 
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const errorLoggingIn = useSelector((state) => state.accountReducer.error);
-
+  console.log(errorLoggingIn);
   const [account, setAccount] = useState({
     email: "",
     password: "",
@@ -44,8 +44,6 @@ const Login = () => {
         .catch((error) => console.log(error));
     } else {
       dispatch(logInError(account, "Form not filled in properly"));
-      // not sure what to do here
-      console.log(errorLoggingIn);
     }
   };
 
@@ -63,7 +61,7 @@ const Login = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      {errorLoggingIn !== "null" && (
+      {errorLoggingIn !== null && (
         <p style={{ color: "red" }}>Please fill in the form properly</p>
       )}
     </>
