@@ -1,31 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import ButtonLink from "../ButtonLink";
-import { logOutAccount } from "../Reducers/actions";
+import { logOutAccount, clearCart } from "../Reducers/actions";
 import { colors } from "../GlobalStyles";
 
 const AccountHomepage = () => {
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
   const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
   const dispatch = useDispatch();
-  // const history = useHistory();
-  // const [sellerProducts, setSellerProducts] = useState(null);
-  // const isProducts = true;
-  // useEffect(() => {
-  //   fetch("/products")
-  //     .then((res) => res.json())
-  //     .then((response) => {
-  //       const filteredProducts = response.data.filter((product) => {
-  //         return product.sellerId === accountInfo._id;
-  //       });
-  //       setSellerProducts(filteredProducts);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
 
   return (
     <>
@@ -60,13 +44,16 @@ const AccountHomepage = () => {
             </AccountInfoContainer>
           </UserProfileContainer>
           <ButtonContainer>
-            <ButtonLink path={"/update/account"} text={"Update Account"} />
+            <span style={{ padding: 10 }}>
+              <ButtonLink path={"/update/account"} text={"Update Account"} />
+            </span>
             <Button
               onClick={() => {
                 dispatch(logOutAccount());
+                dispatch(clearCart());
               }}
             >
-              Log out
+              Log Out
             </Button>
           </ButtonContainer>
         </div>
@@ -83,6 +70,7 @@ const NotLoggedInContainer = styled.div`
   top: 5%;
   left: 15%;
   justify-content: space-around;
+  align-items: baseline;
   color: white;
 `;
 
@@ -94,9 +82,10 @@ const SignInOptions = styled.div`
 `;
 
 const Button = styled.button`
-  height: 30px;
   width: 150px;
+  height: 25px;
   padding: 0;
+  font-size: 12pt;
 `;
 
 const UserProfileContainer = styled.div`

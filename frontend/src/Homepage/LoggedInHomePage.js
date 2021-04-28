@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import Preview from "./Preview";
 import ButtonLink from "../ButtonLink";
@@ -29,11 +30,14 @@ const LoggedInHP = ({ accountInfo, loggedIn, isProducts }) => {
             let random =
               copyArray[Math.floor(Math.random() * copyArray.length)];
             randomProductArray.push(random);
+            let indexToRemove = copyArray.indexOf(random);
+            copyArray.splice(indexToRemove, 1);
           }
           setRandomProducts(randomProductArray);
+          console.log(randomProductArray);
         });
     }
-  }, [loggedIn]);
+  }, [loggedIn, accountInfo]);
 
   return (
     <>
@@ -46,7 +50,6 @@ const LoggedInHP = ({ accountInfo, loggedIn, isProducts }) => {
           )}
           <ButtonLinkContainer>
             <ButtonLink path={"/selling/add"} text={"Add New"} />
-            <ButtonLink path={"/update/account"} text={"Update Account"} />
           </ButtonLinkContainer>
         </>
       ) : (

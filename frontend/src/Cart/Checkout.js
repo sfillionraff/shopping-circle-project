@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Form from "../Form";
 import { colors } from "../GlobalStyles";
+import { clearCart } from "../Reducers/actions";
 
 const Checkout = () => {
   const history = useHistory();
   const cartContents = useSelector((state) => state.cartReducer);
+  const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
   const productIds = cartContents.map((product) => {
     return product._id;
   });
   const [success, setSuccess] = useState();
   const [checkoutError, setCheckoutError] = useState(null);
+  const dispatch = useDispatch();
 
   const getTotal = (items) => {
     let prices = items.map((item) => {
@@ -67,11 +70,15 @@ const Checkout = () => {
         },
       })
         .then((result) => result.json())
-        .then((response) => setSuccess(true))
+        .then((response) => {
+          setSuccess(true);
+          dispatch(clearCart());
+        })
         .catch((error) => {
           console.log(error);
           setSuccess(false);
           setCheckoutError(true);
+          dispatch(clearCart());
         });
     } else {
       setCheckoutError(true);

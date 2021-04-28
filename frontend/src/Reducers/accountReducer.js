@@ -2,6 +2,7 @@ const initialState = {
   loggedIn: false,
   accountInfo: null,
   error: null,
+  new: null,
 };
 
 export default function accountReducer(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function accountReducer(state = initialState, action) {
         loggedIn: true,
         accountInfo: action.item,
         error: null,
+        new: action.new,
       };
     }
     case "LOG_OUT_ACCOUNT": {

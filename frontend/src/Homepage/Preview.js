@@ -13,7 +13,11 @@ const Preview = ({ data, isProducts }) => {
             to={isProducts ? `/product/${item._id}` : `/selling/${item._id}`}
           >
             <div key={item._id}>
-              <Image src={item.imageSrc} alt="homepage image" />
+              {isProducts && item.status === "unavailable" ? (
+                <UnavailImage src={item.imageSrc} alt="homepage image" />
+              ) : (
+                <Image src={item.imageSrc} alt="homepage image" />
+              )}
             </div>
           </Link>
         );
@@ -38,6 +42,18 @@ const Image = styled.img`
   margin-top: 50px;
   border-radius: 12px;
 
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
+const UnavailImage = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-top: 50px;
+  border-radius: 12px;
+  opacity: 0.2;
   &:hover {
     transform: scale(1.2);
   }

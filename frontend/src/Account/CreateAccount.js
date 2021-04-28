@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import { logIntoAccount, logInError } from "../Reducers/actions";
 import Form from "../Form";
-// import useForm from "../FormFunctions";
 
 const CreateAccount = () => {
   const dispatch = useDispatch();
@@ -22,14 +21,8 @@ const CreateAccount = () => {
     imageSrc: "",
   });
 
-  // const accountLink = "/account/addNew";
-  // const { handleChange, validateForm, handleSubmit } = useForm(
-  //   account,
-  //   setAccount,
-  //   accountLink
-  // );
-
   const handleChange = (value, name) => {
+    console.log(account);
     setAccount({ ...account, [name]: value });
   };
 
@@ -51,7 +44,9 @@ const CreateAccount = () => {
         },
       })
         .then((result) => result.json())
-        .then((response) => dispatch(logIntoAccount(response.account)))
+        .then((response) => {
+          dispatch(logIntoAccount(response.data));
+        })
         .catch((error) => console.log(error));
     } else {
       dispatch(logInError(account, "Form not filled in properly"));
@@ -73,7 +68,7 @@ const CreateAccount = () => {
         handleChange={handleChange}
       />
       {errorLoggingIn !== null && (
-        <p style={{ color: "red" }}>Please fill in the form properly</p>
+        <p style={{ color: "red", fontSize: 12 }}>Please fill in all fields</p>
       )}
     </>
   );

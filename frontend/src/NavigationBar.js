@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 import { colors } from "./GlobalStyles";
 import { AiOutlineShoppingCart, AiOutlineHome } from "react-icons/ai";
 import { RiAccountCircleLine } from "react-icons/ri";
-// import Logo from "./Logo";
 
 const NavBar = () => {
   const accountInfo = useSelector((state) => state.accountReducer.accountInfo);
   const loggedIn = useSelector((state) => state.accountReducer.loggedIn);
+
   return (
     <>
       {!loggedIn ? (
@@ -74,7 +74,11 @@ const NavBar = () => {
               color: colors.yellow,
             }}
           >
-            <Image src={accountInfo.imageSrc} alt="account picture" />
+            {accountInfo.imageSrc === "" ? (
+              <RiAccountCircleLine />
+            ) : (
+              <Image src={accountInfo.imageSrc} alt="account picture" />
+            )}
           </MenuItem>
         </Menu>
       ) : (
@@ -111,7 +115,11 @@ const NavBar = () => {
               color: colors.yellow,
             }}
           >
-            <Image src={accountInfo.imageSrc} alt="account picture" />
+            {accountInfo.imageSrc === "" ? (
+              <RiAccountCircleLine />
+            ) : (
+              <Image src={accountInfo.imageSrc} alt="account picture" />
+            )}
           </MenuItem>
         </Menu>
       )}

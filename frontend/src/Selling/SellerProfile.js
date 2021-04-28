@@ -43,11 +43,9 @@ const SellerProfile = () => {
               src={seller.imageSrc}
               alt={`${seller.firstName} ${seller.lastName}`}
             />
-            {/* <InfoContainer> */}
             <Name>
               {seller.firstName} {seller.lastName}
             </Name>
-            {/* </InfoContainer> */}
           </Container>
           <ForSaleContainer>
             <h1>{seller.firstName}'s Items for Sale</h1>
