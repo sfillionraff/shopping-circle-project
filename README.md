@@ -61,6 +61,7 @@ The site changes depending on whether you are logged in as a buyer or a seller. 
 <img src="images/LoggedInBuyer.png" alt="Buyer Account Homepage">
 
 You can also:
--Update your account information
--Delete your account
--If you have a seller account, you can add, update, or delete items for sale
+
+- Update your account information
+- Delete your account
+- If you have a seller account, you can add, update, or delete items for sale
