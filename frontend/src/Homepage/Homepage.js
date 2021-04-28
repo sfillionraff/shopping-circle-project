@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link as LinkBase } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -33,10 +32,8 @@ const Homepage = () => {
     <>
       {!loggedIn ? (
         <HomepageContainer>
-          {/* first section */}
           <HomepageTop />
           <SeparatorSection />
-          {/* second section */}
           {previewProducts !== null && (
             <div>
               <SectionTitle>Explore what's for sale</SectionTitle>
@@ -46,7 +43,6 @@ const Homepage = () => {
               </ButtonLinkContainer>
             </div>
           )}
-          {/* third section */}
           {sellers !== null && (
             <div>
               <SectionTitle>Selling online has never been so easy</SectionTitle>
@@ -58,7 +54,7 @@ const Homepage = () => {
             </div>
           )}
         </HomepageContainer>
-      ) : (
+      ) : loggedIn && accountInfo ? (
         <HomepageContainer>
           <LoggedInHP
             accountInfo={accountInfo}
@@ -66,7 +62,7 @@ const Homepage = () => {
             isProducts={isProducts}
           />
         </HomepageContainer>
-      )}
+      ) : null}
     </>
   );
 };

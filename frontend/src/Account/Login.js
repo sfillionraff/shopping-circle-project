@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { colors } from "../GlobalStyles";
 import { logIntoAccount, logInError } from "../Reducers/actions";
 import Form from "../Form";
-// NOT SURE I DID THIS PROPERLY
-import { FormFunctions } from "../FormFunctions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,6 +18,7 @@ const Login = () => {
   });
 
   const handleChange = (value, name) => {
+    console.log(account);
     setAccount({
       ...account,
       [name]: value,
@@ -40,7 +37,9 @@ const Login = () => {
         },
       })
         .then((result) => result.json())
-        .then((response) => dispatch(logIntoAccount(response.data)))
+        .then((response) => {
+          dispatch(logIntoAccount(response.data));
+        })
         .catch((error) => console.log(error));
     } else {
       dispatch(logInError(account, "Form not filled in properly"));
@@ -62,35 +61,10 @@ const Login = () => {
         handleChange={handleChange}
       />
       {errorLoggingIn !== null && (
-        <p style={{ color: "red" }}>Please fill in the form properly</p>
+        <p style={{ color: "red", fontSize: 12 }}>Please fill in all fields</p>
       )}
     </>
   );
 };
-
-// const Container = styled.div`
-//   position: relative;
-//   top: 10%;
-//   left: 45%;
-//   width: 200px;
-//   height: 150px;
-//   padding: 15px;
-//   background-color: ${colors.yellow};
-//   border-radius: 12px;
-//   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-// `;
-
-// const Label = styled.label`
-//   color: white;
-//   font-weight: bold;
-// `;
-
-// const Input = styled.input`
-//   border-radius: 12px;
-//   border-style: none;
-//   &:focus {
-//     outline: 1px solid ${colors.green};
-//   }
-// `;
 
 export default Login;

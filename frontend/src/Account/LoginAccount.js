@@ -42,7 +42,7 @@ const Container = styled.div`
   top: 10%;
   left: 45%;
   width: 200px;
-  height: 300px;
+  height: 350px;
   padding: 15px;
   background-color: ${colors.yellow};
   border-radius: 12px;
@@ -58,6 +58,7 @@ const StyledLink = styled(NavLink)`
 
 const Span = styled.span`
   height: 150px;
+  margin-bottom: 10px;
 `;
 
 export default LoginAccount;

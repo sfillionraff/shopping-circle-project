@@ -14,12 +14,11 @@ const UpdateItem = () => {
 
   const handleChange = (value, name) => {
     setProductToUpdate({ ...productToUpdate, [name]: value });
-    console.log(productToUpdate);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/updateItem", {
+    fetch("/update-item", {
       method: "PUT",
       body: JSON.stringify(productToUpdate),
       headers: {
@@ -28,7 +27,6 @@ const UpdateItem = () => {
       },
     })
       .then((result) => result.json())
-      //   .then((response) => console.log(response));
       .then((response) => setSuccess(true))
       .catch((error) => {
         console.log(error);
@@ -38,7 +36,7 @@ const UpdateItem = () => {
 
   const deleteItem = (e) => {
     e.preventDefault();
-    fetch("/deleteItem", {
+    fetch("/delete-item", {
       method: "DELETE",
       body: JSON.stringify(_id),
       headers: {
@@ -63,11 +61,11 @@ const UpdateItem = () => {
 
   useEffect(() => {
     if (success) {
-      history.push("/success/update");
+      history.push("/success/update-item");
     } else if (itemDeleted) {
-      history.push("/success/delete");
+      history.push("/success/delete-item");
     }
-  });
+  }, [success, itemDeleted]);
 
   return (
     <Container>
@@ -79,6 +77,12 @@ const UpdateItem = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
           />
+          <button
+            onClick={(e) => deleteItem(e)}
+            style={{ width: 100, height: 25, padding: 2, fontSize: 12 }}
+          >
+            Delete Item{" "}
+          </button>
         </>
       )}
     </Container>

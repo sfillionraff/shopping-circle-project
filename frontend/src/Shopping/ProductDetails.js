@@ -59,6 +59,8 @@ const ProductDetails = () => {
     }
   }, [itemDeleted]);
 
+  console.log(accountInfo);
+
   return (
     <>
       {product !== null && (

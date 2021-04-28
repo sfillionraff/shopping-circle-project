@@ -18,24 +18,40 @@ const Success = () => {
         <>
           <h1>Item has been added!</h1>
           <p>
-            Go to <StyledLink to="/account">Account</StyledLink> to see all your
-            items for sale
+            Go to <StyledLink to="/">Home</StyledLink> to see all your items for
+            sale
           </p>
         </>
-      ) : type === "update" ? (
+      ) : type === "update-account" ? (
+        <>
+          <h1>Your account has been updated!</h1>
+          <p>
+            Go to <StyledLink to="/">Home</StyledLink> to see all your items for
+            sale
+          </p>
+        </>
+      ) : type === "delete-account" ? (
+        <>
+          <h1>Your account has been deleted!</h1>
+          <p>
+            Go to <StyledLink to="/account/create">Create Account</StyledLink>{" "}
+            to make a new account!
+          </p>
+        </>
+      ) : type === "update-item" ? (
         <>
           <h1>Item has been updated!</h1>
           <p>
-            Go to <StyledLink to="/account">Account</StyledLink> to see all your
-            items for sale
+            Go to <StyledLink to="/">Home</StyledLink> to see all your items for
+            sale
           </p>
         </>
-      ) : type === "delete" ? (
+      ) : type === "delete-item" ? (
         <>
           <h1>Item has been deleted!</h1>
           <p>
-            Go to <StyledLink to="/account">Account</StyledLink> to see all your
-            items for sale
+            Go to <StyledLink to="/">Home</StyledLink> to see all your items for
+            sale
           </p>
         </>
       ) : null}

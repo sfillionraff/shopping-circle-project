@@ -160,6 +160,7 @@ const addProduct = async (req, res) => {
       description: newProduct.description,
       imageSrc: newProduct.imageSrc,
       sellerId: sellerId,
+      status: "available",
     })
     .then((result) => {
       res.status(200).json({
@@ -200,11 +201,11 @@ const createAccount = async (req, res) => {
       type: newUser.type,
       imageSrc: newUser.imageSrc,
     })
+    // FIGURE OUT HOW TO REMOVE NEW USER issue
     .then((result) => {
       res.status(200).json({
         status: 200,
-        data: result,
-        account: { newUser, _id },
+        data: result.ops[0],
         message: "New account successfully created!",
       });
     })
@@ -221,25 +222,6 @@ const createAccount = async (req, res) => {
     });
 };
 
-// const verifyInfo = () => {
-//   const emailToTest = userInfo.email.normalize();
-//   const passwordToTest = userInfo.password.normalize();
-//   const correctEmail = result.data.email.normalize();
-//   const correctPassword = result.data.password.normalize();
-//   console.log("emailToTest:", emailToTest);
-//   console.log("correctEmail:", correctEmail);
-//   console.log("passwordToTest:", passwordToTest);
-//   console.log("correctPassword:", correctPassword);
-//   if (
-//     emailToTest === correctEmail &&
-//     passwordToTest === correctPassword
-//   ) {
-//     console.log("yay!");
-//   } else {
-//     console.log("Login credentials are incorrect");
-//   }
-// };
-
 const login = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   await client.connect();
@@ -251,17 +233,12 @@ const login = async (req, res) => {
     .collection("users")
     .findOne({ email: userInfo.email })
     .then((result) => {
-      // if (
-      //   result.data.email == userInfo.email &&
-      //   result.data.password == userInfo.password
-      // ) {
       console.log("yay!");
       res.status(200).json({
         status: 200,
         data: result,
         message: "User found",
       });
-      // }
     })
     .catch((error) => {
       res.status(400).json({
@@ -374,7 +351,80 @@ const deleteItem = async (req, res) => {
         status: 400,
         data: `Product ID: ${productId}`,
         error,
-        message: "Products not updated successfully",
+        message: "Products not deleted successfully",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
+const updateAccount = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const accountToUpdate = req.body;
+  const accountId = accountToUpdate._id;
+  await db
+    .collection("users")
+    .updateOne(
+      { _id: accountId },
+      {
+        firstName: accountToUpdate.firstName,
+        lastName: accountToUpdate.lastName,
+        email: accountToUpdate.email,
+        type: accountToUpdate.type,
+        imageSrc: accountToUpdate.imageSrc,
+      }
+    )
+    .then((result) => {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Success!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        data: `Account ID: ${accountToUpdate._id}`,
+        error,
+        message: "Account not updated successfully",
+      });
+    })
+    .finally(() => {
+      client.close();
+      console.log("disconnected");
+    });
+};
+
+const deleteAccount = async (req, res) => {
+  const client = await MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = await client.db("Shopping_Circle");
+  console.log("connected");
+  const accountId = req.params._id;
+  console.log(accountId);
+  await db
+    .collection("users")
+    .deleteOne({ _id: accountId })
+    .then((result) => {
+      console.log("yay!");
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Success!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: 400,
+        data: `Account ID: ${accountId}`,
+        error,
+        message: "Account not deleted successfully",
       });
     })
     .finally(() => {
@@ -395,4 +445,6 @@ module.exports = {
   updateProducts,
   updateItem,
   deleteItem,
+  updateAccount,
+  deleteAccount,
 };

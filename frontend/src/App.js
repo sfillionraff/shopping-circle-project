@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
 import NavBar from "./NavigationBar";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 import Homepage from "./Homepage/Homepage";
 import ShoppingHomepage from "./Shopping/ShoppingHomepage";
 import SideBarSearch from "./Shopping/SideBarSearch";
@@ -14,9 +14,12 @@ import AddNewItem from "./Selling/AddNewItem";
 import UpdateItem from "./Selling/UpdateItem";
 import AccountHomepage from "./Account/AccountHomepage";
 import LoginAccount from "./Account/LoginAccount";
+import UpdateAccount from "./Account/UpdateAccount";
 import Cart from "./Cart/Cart";
 import Checkout from "./Cart/Checkout";
 import Success from "./Success";
+import Philosophy from "./Footer/Philosophy";
+import EnvironmentalImpact from "./Footer/EnviroImpact";
 
 function App() {
   return (
@@ -75,7 +78,7 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/update/account">
-          <h1>update account information page</h1>
+          <UpdateAccount />
         </Route>
       </Switch>
       <Switch>
@@ -90,12 +93,12 @@ function App() {
       </Switch>
       <Switch>
         <Route exact path="/about-us">
-          <h1>about us</h1>
+          <Philosophy />
         </Route>
       </Switch>
       <Switch>
         <Route exact path="/environment">
-          <h1>errybody loves the environment</h1>
+          <EnvironmentalImpact />
         </Route>
       </Switch>
       <Switch>

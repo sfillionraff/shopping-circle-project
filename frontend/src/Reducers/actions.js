@@ -9,6 +9,10 @@ export const removeItem = (item) => ({
   item,
 });
 
+export const clearCart = () => ({
+  type: "CLEAR_CART",
+});
+
 // account actions
 export const logIntoAccount = (item) => ({
   type: "LOG_INTO_ACCOUNT",
