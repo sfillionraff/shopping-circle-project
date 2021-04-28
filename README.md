@@ -6,11 +6,19 @@ For my final project at the Concordia University Bootcamps Full-Stack Web Develo
 
 ## Technologies Used:
 
-Frontend: 1. React.js 2. Redux.js
+Frontend:
 
-Backend: 1. Node.js 2. Express
+1. React.js
+2. Redux.js
 
-Database: 1. MongoDB
+Backend:
+
+1. Node.js
+2. Express
+
+Database:
+
+1. MongoDB
 
 ## Features:
 
