@@ -4,6 +4,8 @@
 
 For my final project at the Concordia University Bootcamps Full-Stack Web Development course, I created an app similar to Facebook Marketplace called the Shopping Circle. This website allows you to buy or sell used items instead of throwing them away.
 
+For a full demo of the project: https://www.youtube.com/watch?v=r6JsQ4vnoCk
+
 ## Technologies Used:
 
 Frontend:
