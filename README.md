@@ -1,4 +1,5 @@
-![gif] (images/Homepage Gif.gif)
+<!-- ![gif] (images/Homepage Gif.gif) -->
+<img src="/Users/simone/Documents/concordia-bootcamps/shopping-circle-project/images/HomepageGif.gif">
 
 # The Shopping Circle
 
