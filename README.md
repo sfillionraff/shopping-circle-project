@@ -1,5 +1,4 @@
-<!-- ![gif] (images/Homepage Gif.gif) -->
-<img src="/Users/simone/Documents/concordia-bootcamps/shopping-circle-project/images/HomepageGif.gif">
+<img src="images/Homepage Gif.gif" alt="Homepage Gif">
 
 # The Shopping Circle
 
@@ -27,13 +26,13 @@ You can see more details about each product by clicking on the product
 
 You can then purchase the product and view your cart
 
-![gif] (images/AddToCart.gif)
+<img src="images/AddToCart.gif" alt="Add Product to Cart Gif">
 
 ### Selling:
 
 The Selling Homepage explains how selling on the site works, gives links to individual seller profiles, and offers the option to sign up for a new account or log into an existing account
 
-![gif] (images/SellingHomepage.gif)
+<img src="images/SellingHomepage.gif" alt="Selling Homepage Gif">
 
 When you view a seller's profile, you can see their name and what items they have on sale
 
@@ -41,13 +40,13 @@ When you view a seller's profile, you can see their name and what items they hav
 
 You can also create a new account or log into an existing account
 
-![gif] (images/Login.gif)
+<img src="images/Login.gif" alt="Login Gif">
 
 ### Checkout:
 
 You can purchase items through the site. There is a form validation that makes sure all fields are filled out.
 
-![gif] (images/Purchase.gif)
+<img src="images/Purchase.gif" alt="Purchase Form Gif">
 
 ### Other Features:
 
